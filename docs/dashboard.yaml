@@ -99,38 +99,281 @@ views:
       - type: grid
         cards:
           - type: heading
-            heading: Katzen
+            heading: Cat 1
             icon: mdi:cat
           - type: tile
-            entity: sensor.YOUR_CAT_1_weight
-            name: Cat 1 – Gewicht
+            entity: sensor.YOUR_CAT_1_gewicht
+            name: Gewicht
             grid_options:
-              columns: full
+              columns: 6
           - type: tile
-            entity: sensor.YOUR_CAT_1_age
-            name: Cat 1 – Alter
+            entity: sensor.YOUR_CAT_1_alter
+            name: Alter
             grid_options:
-              columns: full
+              columns: 6
           - type: tile
-            entity: sensor.YOUR_CAT_1_birthday
-            name: Cat 1 – Geburtstag
+            entity: sensor.YOUR_CAT_1_geburtstag
+            name: Geburtstag
             grid_options:
               columns: full
+          - type: heading
+            heading: Wurmkur
+            heading_style: subtitle
+            icon: mdi:pill
           - type: tile
-            entity: sensor.YOUR_CAT_2_weight
-            name: Cat 2 – Gewicht
+            entity: date.YOUR_CAT_1_letzte_wurmkur
+            name: Zuletzt
             grid_options:
-              columns: full
+              columns: 6
           - type: tile
-            entity: sensor.YOUR_CAT_2_age
-            name: Cat 2 – Alter
+            entity: sensor.YOUR_CAT_1_nachste_wurmkur
+            name: Fällig am
+            color: red
             grid_options:
-              columns: full
+              columns: 6
+            visibility:
+              - condition: numeric_state
+                entity: sensor.YOUR_CAT_1_tage_bis_wurmkur
+                below: 0
           - type: tile
-            entity: sensor.YOUR_CAT_2_birthday
-            name: Cat 2 – Geburtstag
+            entity: sensor.YOUR_CAT_1_nachste_wurmkur
+            name: Fällig am
+            color: orange
+            grid_options:
+              columns: 6
+            visibility:
+              - condition: numeric_state
+                entity: sensor.YOUR_CAT_1_tage_bis_wurmkur
+                above: -1
+                below: 15
+          - type: tile
+            entity: sensor.YOUR_CAT_1_nachste_wurmkur
+            name: Fällig am
+            color: green
+            grid_options:
+              columns: 6
+            visibility:
+              - condition: numeric_state
+                entity: sensor.YOUR_CAT_1_tage_bis_wurmkur
+                above: 14
+          - type: heading
+            heading: Flohbehandlung
+            heading_style: subtitle
+            icon: mdi:bug-outline
+          - type: tile
+            entity: date.YOUR_CAT_1_letzte_flohbehandlung
+            name: Zuletzt
+            grid_options:
+              columns: 6
+          - type: tile
+            entity: sensor.YOUR_CAT_1_nachste_flohbehandlung
+            name: Fällig am
+            color: red
+            grid_options:
+              columns: 6
+            visibility:
+              - condition: numeric_state
+                entity: sensor.YOUR_CAT_1_tage_bis_flohbehandlung
+                below: 0
+          - type: tile
+            entity: sensor.YOUR_CAT_1_nachste_flohbehandlung
+            name: Fällig am
+            color: orange
+            grid_options:
+              columns: 6
+            visibility:
+              - condition: numeric_state
+                entity: sensor.YOUR_CAT_1_tage_bis_flohbehandlung
+                above: -1
+                below: 15
+          - type: tile
+            entity: sensor.YOUR_CAT_1_nachste_flohbehandlung
+            name: Fällig am
+            color: green
+            grid_options:
+              columns: 6
+            visibility:
+              - condition: numeric_state
+                entity: sensor.YOUR_CAT_1_tage_bis_flohbehandlung
+                above: 14
+          - type: heading
+            heading: Arztbesuch
+            heading_style: subtitle
+            icon: mdi:stethoscope
+          - type: tile
+            entity: date.YOUR_CAT_1_letzter_arztbesuch
+            name: Zuletzt
+            grid_options:
+              columns: 6
+          - type: tile
+            entity: sensor.YOUR_CAT_1_nachster_arztbesuch
+            name: Fällig am
+            color: red
+            grid_options:
+              columns: 6
+            visibility:
+              - condition: numeric_state
+                entity: sensor.YOUR_CAT_1_tage_bis_arztbesuch
+                below: 0
+          - type: tile
+            entity: sensor.YOUR_CAT_1_nachster_arztbesuch
+            name: Fällig am
+            color: orange
+            grid_options:
+              columns: 6
+            visibility:
+              - condition: numeric_state
+                entity: sensor.YOUR_CAT_1_tage_bis_arztbesuch
+                above: -1
+                below: 15
+          - type: tile
+            entity: sensor.YOUR_CAT_1_nachster_arztbesuch
+            name: Fällig am
+            color: green
+            grid_options:
+              columns: 6
+            visibility:
+              - condition: numeric_state
+                entity: sensor.YOUR_CAT_1_tage_bis_arztbesuch
+                above: 14
+          - type: heading
+            heading: Cat 2
+            icon: mdi:cat
+          - type: tile
+            entity: sensor.YOUR_CAT_2_gewicht
+            name: Gewicht
+            grid_options:
+              columns: 6
+          - type: tile
+            entity: sensor.YOUR_CAT_2_alter
+            name: Alter
+            grid_options:
+              columns: 6
+          - type: tile
+            entity: sensor.YOUR_CAT_2_geburtstag
+            name: Geburtstag
             grid_options:
               columns: full
+          - type: heading
+            heading: Wurmkur
+            heading_style: subtitle
+            icon: mdi:pill
+          - type: tile
+            entity: date.YOUR_CAT_2_letzte_wurmkur
+            name: Zuletzt
+            grid_options:
+              columns: 6
+          - type: tile
+            entity: sensor.YOUR_CAT_2_nachste_wurmkur
+            name: Fällig am
+            color: red
+            grid_options:
+              columns: 6
+            visibility:
+              - condition: numeric_state
+                entity: sensor.YOUR_CAT_2_tage_bis_wurmkur
+                below: 0
+          - type: tile
+            entity: sensor.YOUR_CAT_2_nachste_wurmkur
+            name: Fällig am
+            color: orange
+            grid_options:
+              columns: 6
+            visibility:
+              - condition: numeric_state
+                entity: sensor.YOUR_CAT_2_tage_bis_wurmkur
+                above: -1
+                below: 15
+          - type: tile
+            entity: sensor.YOUR_CAT_2_nachste_wurmkur
+            name: Fällig am
+            color: green
+            grid_options:
+              columns: 6
+            visibility:
+              - condition: numeric_state
+                entity: sensor.YOUR_CAT_2_tage_bis_wurmkur
+                above: 14
+          - type: heading
+            heading: Flohbehandlung
+            heading_style: subtitle
+            icon: mdi:bug-outline
+          - type: tile
+            entity: date.YOUR_CAT_2_letzte_flohbehandlung
+            name: Zuletzt
+            grid_options:
+              columns: 6
+          - type: tile
+            entity: sensor.YOUR_CAT_2_nachste_flohbehandlung
+            name: Fällig am
+            color: red
+            grid_options:
+              columns: 6
+            visibility:
+              - condition: numeric_state
+                entity: sensor.YOUR_CAT_2_tage_bis_flohbehandlung
+                below: 0
+          - type: tile
+            entity: sensor.YOUR_CAT_2_nachste_flohbehandlung
+            name: Fällig am
+            color: orange
+            grid_options:
+              columns: 6
+            visibility:
+              - condition: numeric_state
+                entity: sensor.YOUR_CAT_2_tage_bis_flohbehandlung
+                above: -1
+                below: 15
+          - type: tile
+            entity: sensor.YOUR_CAT_2_nachste_flohbehandlung
+            name: Fällig am
+            color: green
+            grid_options:
+              columns: 6
+            visibility:
+              - condition: numeric_state
+                entity: sensor.YOUR_CAT_2_tage_bis_flohbehandlung
+                above: 14
+          - type: heading
+            heading: Arztbesuch
+            heading_style: subtitle
+            icon: mdi:stethoscope
+          - type: tile
+            entity: date.YOUR_CAT_2_letzter_arztbesuch
+            name: Zuletzt
+            grid_options:
+              columns: 6
+          - type: tile
+            entity: sensor.YOUR_CAT_2_nachster_arztbesuch
+            name: Fällig am
+            color: red
+            grid_options:
+              columns: 6
+            visibility:
+              - condition: numeric_state
+                entity: sensor.YOUR_CAT_2_tage_bis_arztbesuch
+                below: 0
+          - type: tile
+            entity: sensor.YOUR_CAT_2_nachster_arztbesuch
+            name: Fällig am
+            color: orange
+            grid_options:
+              columns: 6
+            visibility:
+              - condition: numeric_state
+                entity: sensor.YOUR_CAT_2_tage_bis_arztbesuch
+                above: -1
+                below: 15
+          - type: tile
+            entity: sensor.YOUR_CAT_2_nachster_arztbesuch
+            name: Fällig am
+            color: green
+            grid_options:
+              columns: 6
+            visibility:
+              - condition: numeric_state
+                entity: sensor.YOUR_CAT_2_tage_bis_arztbesuch
+                above: 14
           - type: heading
             heading: Statistiken
             icon: mdi:chart-bar
