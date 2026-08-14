@@ -1,5 +1,10 @@
 # Changelog
 
+## 0.8.3 — 2026-08-14
+
+- **French and Italian translations** (`translations/fr.json`, `translations/it.json`) — Flappie is a Swiss product, so German, French and Italian users are now covered in their own language
+- Removed a duplicate `cat_weight` key in `strings.json`
+
 ## 0.8.2 — 2026-08-14
 
 - CI runs the full HACS validation without the `brands` exception (the shipped brand icon satisfies the check) — prerequisite for the listing in the HACS default store

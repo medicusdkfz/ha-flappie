@@ -1,0 +1,124 @@
+{
+  "config": {
+    "step": {
+      "user": {
+        "title": "Account Flappie",
+        "description": "Accedi con il tuo account dell'app Flappie. Integrazione non ufficiale — utilizza la stessa API cloud dell'app mobile.",
+        "data": {
+          "email": "Indirizzo e-mail",
+          "password": "Password"
+        }
+      },
+      "reauth_confirm": {
+        "title": "Autentica nuovamente Flappie",
+        "description": "La password per {email} non è più valida. Inserisci la nuova password.",
+        "data": {
+          "password": "Password"
+        }
+      }
+    },
+    "error": {
+      "invalid_auth": "Autenticazione non valida",
+      "cannot_connect": "Impossibile connettersi",
+      "unknown": "Errore imprevisto"
+    },
+    "abort": {
+      "already_configured": "L'account è già configurato",
+      "reauth_successful": "La nuova autenticazione è riuscita"
+    }
+  },
+  "entity": {
+    "binary_sensor": {
+      "prey_system_lock": { "name": "Blocco antipreda attivo" },
+      "problem": { "name": "Problema" },
+      "timeplan_active": { "name": "Programma orario attivo" },
+      "health_due_worms": { "name": "Sverminazione da fare" },
+      "health_due_fleas": { "name": "Trattamento antipulci da fare" },
+      "health_due_vet": { "name": "Visita veterinaria da fare" }
+    },
+    "date": {
+      "health_last_worms": { "name": "Ultima sverminazione" },
+      "health_last_fleas": { "name": "Ultimo trattamento antipulci" },
+      "health_last_vet": { "name": "Ultima visita veterinaria" }
+    },
+    "event": {
+      "flap_event": {
+        "name": "Evento della gattaiola",
+        "state_attributes": {
+          "event_type": {
+            "state": {
+              "activity": "Attività",
+              "prey": "Preda rilevata"
+            }
+          }
+        }
+      }
+    },
+    "image": {
+      "last_event_image": { "name": "Ultima immagine dell'evento" },
+      "cat_avatar": { "name": "Immagine del profilo" },
+      "event_image_1": { "name": "Evento 1" },
+      "event_image_2": { "name": "Evento 2" },
+      "event_image_3": { "name": "Evento 3" },
+      "event_image_4": { "name": "Evento 4" }
+    },
+    "number": {
+      "prey_lock_duration": { "name": "Durata del blocco antipreda" },
+      "health_interval_worms": { "name": "Intervallo sverminazione (mesi)" },
+      "health_interval_fleas": { "name": "Intervallo trattamento antipulci (mesi)" },
+      "health_interval_vet": { "name": "Intervallo visita veterinaria (mesi)" }
+    },
+    "select": {
+      "door_policy": {
+        "name": "Modalità della gattaiola",
+        "state": {
+          "open": "Aperta (entrambe le direzioni)",
+          "closed": "Chiusa (entrambe le direzioni)",
+          "open_in": "Solo entrata",
+          "open_out": "Solo uscita"
+        }
+      }
+    },
+    "sensor": {
+      "door_state": {
+        "name": "Stato della gattaiola",
+        "state": {
+          "locked": "Bloccata",
+          "unlocked": "Sbloccata"
+        }
+      },
+      "last_event": { "name": "Ultimo evento" },
+      "last_prey_event": { "name": "Ultimo evento con preda" },
+      "signal_quality": { "name": "Qualità del segnale" },
+      "blocked_prey": { "name": "Prede bloccate" },
+      "cat_weight": { "name": "Peso" },
+      "cat_birthday": { "name": "Data di nascita" },
+      "cat_age": { "name": "Età" },
+      "cat_breed": { "name": "Razza" },
+      "cat_gender": {
+        "name": "Sesso",
+        "state": {
+          "female": "Femmina",
+          "male": "Maschio",
+          "unknown": "Sconosciuto"
+        }
+      },
+      "activity_today": { "name": "Eventi di oggi" },
+      "prey_today": { "name": "Prede di oggi" },
+      "health_next_worms": { "name": "Prossima sverminazione" },
+      "health_next_fleas": { "name": "Prossimo trattamento antipulci" },
+      "health_next_vet": { "name": "Prossima visita veterinaria" },
+      "health_days_worms": { "name": "Giorni alla sverminazione" },
+      "health_days_fleas": { "name": "Giorni al trattamento antipulci" },
+      "health_days_vet": { "name": "Giorni alla visita veterinaria" }
+    },
+    "switch": {
+      "prey_detection": { "name": "Rilevamento prede" },
+      "prey_timed_lock": { "name": "Blocco antipreda temporizzato" },
+      "buttons": { "name": "Pulsanti" },
+      "rfid": { "name": "RFID" },
+      "health_sync_cats": { "name": "Trattamenti: gatti collegati" },
+      "health_combo": { "name": "Trattamenti: prodotto combinato (vermi e pulci)" }
+    }
+  }
+}

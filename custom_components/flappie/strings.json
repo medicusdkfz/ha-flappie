@@ -110,8 +110,7 @@
       "health_next_vet": { "name": "Next vet visit" },
       "health_days_worms": { "name": "Days until deworming" },
       "health_days_fleas": { "name": "Days until flea treatment" },
-      "health_days_vet": { "name": "Days until vet visit" },
-      "cat_weight": { "name": "Weight" }
+      "health_days_vet": { "name": "Days until vet visit" }
     },
     "switch": {
       "prey_detection": { "name": "Prey detection" },

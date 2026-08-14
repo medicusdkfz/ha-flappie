@@ -24,7 +24,7 @@ The API layer is a Python port of the reverse-engineered npm package [`flappie-a
 - **Event entity** — fires `activity` / `prey` for every new detection; perfect for automations and notifications
 - **Cats as devices** — every cat profile from your account becomes its own HA device with a weight sensor (breed, gender, birthday as attributes) and avatar image
 - **Long-term statistics** — daily activity and daily prey counts imported into HA long-term statistics, including historic backfill (prey since device registration!)
-- **Translated** — English and German
+- **Translated** — English, German, French and Italian
 
 ## Screenshots
 

@@ -1,0 +1,124 @@
+{
+  "config": {
+    "step": {
+      "user": {
+        "title": "Compte Flappie",
+        "description": "Connectez-vous avec votre compte de l'application Flappie. Intégration non officielle — elle utilise la même API cloud que l'application mobile.",
+        "data": {
+          "email": "Adresse e-mail",
+          "password": "Mot de passe"
+        }
+      },
+      "reauth_confirm": {
+        "title": "Réauthentifier Flappie",
+        "description": "Le mot de passe pour {email} n'est plus valide. Saisissez le nouveau mot de passe.",
+        "data": {
+          "password": "Mot de passe"
+        }
+      }
+    },
+    "error": {
+      "invalid_auth": "Authentification non valide",
+      "cannot_connect": "Échec de connexion",
+      "unknown": "Erreur inattendue"
+    },
+    "abort": {
+      "already_configured": "Le compte est déjà configuré",
+      "reauth_successful": "La réauthentification a réussi"
+    }
+  },
+  "entity": {
+    "binary_sensor": {
+      "prey_system_lock": { "name": "Verrouillage anti-proie actif" },
+      "problem": { "name": "Problème" },
+      "timeplan_active": { "name": "Programme horaire actif" },
+      "health_due_worms": { "name": "Vermifuge à faire" },
+      "health_due_fleas": { "name": "Traitement antipuces à faire" },
+      "health_due_vet": { "name": "Visite vétérinaire à faire" }
+    },
+    "date": {
+      "health_last_worms": { "name": "Dernier vermifuge" },
+      "health_last_fleas": { "name": "Dernier traitement antipuces" },
+      "health_last_vet": { "name": "Dernière visite vétérinaire" }
+    },
+    "event": {
+      "flap_event": {
+        "name": "Événement de la chatière",
+        "state_attributes": {
+          "event_type": {
+            "state": {
+              "activity": "Activité",
+              "prey": "Proie détectée"
+            }
+          }
+        }
+      }
+    },
+    "image": {
+      "last_event_image": { "name": "Dernière image d'événement" },
+      "cat_avatar": { "name": "Photo de profil" },
+      "event_image_1": { "name": "Événement 1" },
+      "event_image_2": { "name": "Événement 2" },
+      "event_image_3": { "name": "Événement 3" },
+      "event_image_4": { "name": "Événement 4" }
+    },
+    "number": {
+      "prey_lock_duration": { "name": "Durée du verrouillage anti-proie" },
+      "health_interval_worms": { "name": "Intervalle vermifuge (mois)" },
+      "health_interval_fleas": { "name": "Intervalle traitement antipuces (mois)" },
+      "health_interval_vet": { "name": "Intervalle visite vétérinaire (mois)" }
+    },
+    "select": {
+      "door_policy": {
+        "name": "Mode de la chatière",
+        "state": {
+          "open": "Ouverte (deux sens)",
+          "closed": "Fermée (deux sens)",
+          "open_in": "Entrée uniquement",
+          "open_out": "Sortie uniquement"
+        }
+      }
+    },
+    "sensor": {
+      "door_state": {
+        "name": "État de la chatière",
+        "state": {
+          "locked": "Verrouillée",
+          "unlocked": "Déverrouillée"
+        }
+      },
+      "last_event": { "name": "Dernier événement" },
+      "last_prey_event": { "name": "Dernier événement de proie" },
+      "signal_quality": { "name": "Qualité du signal" },
+      "blocked_prey": { "name": "Proies bloquées" },
+      "cat_weight": { "name": "Poids" },
+      "cat_birthday": { "name": "Date de naissance" },
+      "cat_age": { "name": "Âge" },
+      "cat_breed": { "name": "Race" },
+      "cat_gender": {
+        "name": "Sexe",
+        "state": {
+          "female": "Femelle",
+          "male": "Mâle",
+          "unknown": "Inconnu"
+        }
+      },
+      "activity_today": { "name": "Événements aujourd'hui" },
+      "prey_today": { "name": "Proies aujourd'hui" },
+      "health_next_worms": { "name": "Prochain vermifuge" },
+      "health_next_fleas": { "name": "Prochain traitement antipuces" },
+      "health_next_vet": { "name": "Prochaine visite vétérinaire" },
+      "health_days_worms": { "name": "Jours avant le vermifuge" },
+      "health_days_fleas": { "name": "Jours avant le traitement antipuces" },
+      "health_days_vet": { "name": "Jours avant la visite vétérinaire" }
+    },
+    "switch": {
+      "prey_detection": { "name": "Détection de proies" },
+      "prey_timed_lock": { "name": "Verrouillage temporisé anti-proie" },
+      "buttons": { "name": "Boutons" },
+      "rfid": { "name": "RFID" },
+      "health_sync_cats": { "name": "Traitements : chats liés" },
+      "health_combo": { "name": "Traitements : produit combiné (vers et puces)" }
+    }
+  }
+}

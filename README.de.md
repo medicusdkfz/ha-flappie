@@ -23,7 +23,7 @@ Die API-Schicht ist eine Python-Portierung des reverse-engineerten npm-Pakets [`
 - **Event-Entität** — feuert `activity`/`prey` bei jeder neuen Erkennung; ideal für Automatisierungen und Benachrichtigungen
 - **Katzen als Geräte** — jedes Katzenprofil des Kontos wird ein eigenes HA-Gerät mit Gewichts-Sensor (Rasse, Geschlecht, Geburtstag als Attribute) und Profilbild
 - **Langzeitstatistiken** — Aktivität und Beute pro Tag als HA-Langzeitstatistik, inklusive historischem Backfill (Beute seit Registrierung der Klappe!)
-- **Übersetzt** — Deutsch und Englisch
+- **Übersetzt** — Deutsch, Englisch, Französisch und Italienisch
 
 ## Screenshots
 
