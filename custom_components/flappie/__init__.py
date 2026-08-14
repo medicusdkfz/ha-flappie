@@ -13,6 +13,7 @@ from .coordinator import FlappieCoordinator
 
 PLATFORMS: list[Platform] = [
     Platform.BINARY_SENSOR,
+    Platform.DATE,
     Platform.EVENT,
     Platform.IMAGE,
     Platform.LOCK,

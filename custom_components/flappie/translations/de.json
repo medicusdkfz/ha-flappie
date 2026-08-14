@@ -31,7 +31,15 @@
     "binary_sensor": {
       "prey_system_lock": { "name": "Beutesperre aktiv" },
       "problem": { "name": "Problem" },
-      "timeplan_active": { "name": "Zeitplan aktiv" }
+      "timeplan_active": { "name": "Zeitplan aktiv" },
+      "health_due_worms": { "name": "Wurmkur fällig" },
+      "health_due_fleas": { "name": "Flohbehandlung fällig" },
+      "health_due_vet": { "name": "Arztbesuch fällig" }
+    },
+    "date": {
+      "health_last_worms": { "name": "Letzte Wurmkur" },
+      "health_last_fleas": { "name": "Letzte Flohbehandlung" },
+      "health_last_vet": { "name": "Letzter Arztbesuch" }
     },
     "event": {
       "flap_event": {
@@ -55,7 +63,10 @@
       "event_image_4": { "name": "Ereignis 4" }
     },
     "number": {
-      "prey_lock_duration": { "name": "Dauer Beutesperre" }
+      "prey_lock_duration": { "name": "Dauer Beutesperre" },
+      "health_interval_worms": { "name": "Intervall Wurmkur (Monate)" },
+      "health_interval_fleas": { "name": "Intervall Flohbehandlung (Monate)" },
+      "health_interval_vet": { "name": "Intervall Arztbesuch (Monate)" }
     },
     "select": {
       "door_policy": {
@@ -93,7 +104,10 @@
         }
       },
       "activity_today": { "name": "Ereignisse heute" },
-      "prey_today": { "name": "Beute heute" }
+      "prey_today": { "name": "Beute heute" },
+      "health_next_worms": { "name": "Nächste Wurmkur" },
+      "health_next_fleas": { "name": "Nächste Flohbehandlung" },
+      "health_next_vet": { "name": "Nächster Arztbesuch" }
     },
     "switch": {
       "prey_detection": { "name": "Beuteerkennung" },

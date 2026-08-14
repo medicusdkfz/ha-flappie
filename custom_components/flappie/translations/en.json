@@ -31,7 +31,15 @@
     "binary_sensor": {
       "prey_system_lock": { "name": "Prey lock active" },
       "problem": { "name": "Problem" },
-      "timeplan_active": { "name": "Time plan active" }
+      "timeplan_active": { "name": "Time plan active" },
+      "health_due_worms": { "name": "Deworming due" },
+      "health_due_fleas": { "name": "Flea treatment due" },
+      "health_due_vet": { "name": "Vet visit due" }
+    },
+    "date": {
+      "health_last_worms": { "name": "Last deworming" },
+      "health_last_fleas": { "name": "Last flea treatment" },
+      "health_last_vet": { "name": "Last vet visit" }
     },
     "event": {
       "flap_event": {
@@ -55,7 +63,10 @@
       "event_image_4": { "name": "Event 4" }
     },
     "number": {
-      "prey_lock_duration": { "name": "Prey lock duration" }
+      "prey_lock_duration": { "name": "Prey lock duration" },
+      "health_interval_worms": { "name": "Deworming interval (months)" },
+      "health_interval_fleas": { "name": "Flea treatment interval (months)" },
+      "health_interval_vet": { "name": "Vet visit interval (months)" }
     },
     "select": {
       "door_policy": {
@@ -93,7 +104,10 @@
         }
       },
       "activity_today": { "name": "Events today" },
-      "prey_today": { "name": "Prey today" }
+      "prey_today": { "name": "Prey today" },
+      "health_next_worms": { "name": "Next deworming" },
+      "health_next_fleas": { "name": "Next flea treatment" },
+      "health_next_vet": { "name": "Next vet visit" }
     },
     "switch": {
       "prey_detection": { "name": "Prey detection" },

@@ -19,7 +19,8 @@ from homeassistant.helpers.entity_platform import AddEntitiesCallback
 from homeassistant.util import dt as dt_util
 
 from . import FlappieConfigEntry
-from .coordinator import FlappieDeviceData, parse_flappie_datetime
+from .const import HEALTH_ICONS, HEALTH_TYPES
+from .coordinator import FlappieDeviceData, add_months, parse_flappie_datetime
 from .entity import FlappieCatEntity, FlappieEntity
 
 
@@ -106,6 +107,11 @@ async def async_setup_entry(
         FlappieCatProfileSensor(coordinator, cat_id, first_device_id, description)
         for cat_id in coordinator.data.cats
         for description in CAT_PROFILE_SENSORS
+    )
+    entities.extend(
+        FlappieHealthNextSensor(coordinator, cat_id, first_device_id, health_type)
+        for cat_id in coordinator.data.cats
+        for health_type in HEALTH_TYPES
     )
     async_add_entities(entities)
 
@@ -294,6 +300,33 @@ class FlappieCatProfileSensor(FlappieCatEntity, SensorEntity):
     @property
     def native_value(self) -> Any:
         return self.entity_description.value_fn(self.cat)
+
+
+class FlappieHealthNextSensor(FlappieCatEntity, SensorEntity):
+    """Naechster Behandlungstermin = letzte Behandlung + Intervall."""
+
+    _attr_device_class = SensorDeviceClass.DATE
+
+    def __init__(
+        self,
+        coordinator,
+        cat_id: int,
+        via_device_id: str | None,
+        health_type: str,
+    ) -> None:
+        super().__init__(
+            coordinator, cat_id, f"health_next_{health_type}", via_device_id
+        )
+        self._health_type = health_type
+        self._attr_translation_key = f"health_next_{health_type}"
+        self._attr_icon = HEALTH_ICONS[health_type]
+
+    @property
+    def native_value(self) -> date | None:
+        entry = self.coordinator.health_entry(self._cat_id, self._health_type)
+        if entry["last"] is None:
+            return None
+        return add_months(entry["last"], entry["interval"])
 
 
 class FlappieCatWeightSensor(FlappieCatEntity, SensorEntity):

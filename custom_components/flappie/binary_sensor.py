@@ -14,9 +14,12 @@ from homeassistant.const import EntityCategory
 from homeassistant.core import HomeAssistant
 from homeassistant.helpers.entity_platform import AddEntitiesCallback
 
+from homeassistant.util import dt as dt_util
+
 from . import FlappieConfigEntry
-from .coordinator import FlappieCoordinator, FlappieDeviceData
-from .entity import FlappieEntity
+from .const import HEALTH_ICONS, HEALTH_TYPES
+from .coordinator import FlappieCoordinator, FlappieDeviceData, add_months
+from .entity import FlappieCatEntity, FlappieEntity
 
 
 @dataclass(frozen=True, kw_only=True)
@@ -61,11 +64,18 @@ async def async_setup_entry(
     async_add_entities: AddEntitiesCallback,
 ) -> None:
     coordinator = entry.runtime_data
-    async_add_entities(
+    entities: list[BinarySensorEntity] = [
         FlappieBinarySensor(coordinator, device_id, description)
         for device_id in coordinator.data.devices
         for description in BINARY_SENSORS
+    ]
+    first_device_id = next(iter(coordinator.data.devices), None)
+    entities.extend(
+        FlappieHealthDueBinarySensor(coordinator, cat_id, first_device_id, health_type)
+        for cat_id in coordinator.data.cats
+        for health_type in HEALTH_TYPES
     )
+    async_add_entities(entities)
 
 
 class FlappieBinarySensor(FlappieEntity, BinarySensorEntity):
@@ -86,3 +96,29 @@ class FlappieBinarySensor(FlappieEntity, BinarySensorEntity):
     def is_on(self) -> bool | None:
         value = self.entity_description.value_fn(self.coordinator, self.device_data)
         return value if isinstance(value, bool) else None
+
+
+class FlappieHealthDueBinarySensor(FlappieCatEntity, BinarySensorEntity):
+    """An, wenn die naechste Behandlung heute oder frueher faellig ist."""
+
+    def __init__(
+        self,
+        coordinator,
+        cat_id: int,
+        via_device_id: str | None,
+        health_type: str,
+    ) -> None:
+        super().__init__(
+            coordinator, cat_id, f"health_due_{health_type}", via_device_id
+        )
+        self._health_type = health_type
+        self._attr_translation_key = f"health_due_{health_type}"
+        self._attr_icon = HEALTH_ICONS[health_type]
+
+    @property
+    def is_on(self) -> bool | None:
+        entry = self.coordinator.health_entry(self._cat_id, self._health_type)
+        if entry["last"] is None:
+            return None
+        next_due = add_months(entry["last"], entry["interval"])
+        return next_due <= dt_util.now().date()

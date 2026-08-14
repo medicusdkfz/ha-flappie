@@ -29,3 +29,17 @@ POLICY_TO_OPTION = {v: k for k, v in OPTION_TO_POLICY.items()}
 
 EVENT_TYPE_ACTIVITY = "activity"
 EVENT_TYPE_PREY = "prey"
+
+# Gesundheits-Tracking pro Katze (lokal gepflegt, nicht aus der Cloud).
+# Wert = Standard-Intervall in Monaten.
+HEALTH_TYPES: dict[str, int] = {
+    "worms": 3,   # Wurmkur
+    "fleas": 1,   # Flohbehandlung
+    "vet": 12,    # Arztbesuch
+}
+
+HEALTH_ICONS: dict[str, str] = {
+    "worms": "mdi:pill",
+    "fleas": "mdi:bug-outline",
+    "vet": "mdi:stethoscope",
+}

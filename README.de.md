@@ -103,6 +103,35 @@ Alle Entitäten werden pro Katzenklappe angelegt. `<name>` steht für den Gerät
 
 Jedes Katzenprofil wird ein Gerät mit Sensoren für **Gewicht** (kg), **Geburtstag** (Datum), **Alter** (Jahre), **Rasse** und **Geschlecht** und, falls in der App ein Profilfoto gesetzt ist, einer **Profilbild**-Entität. In der App gepflegte Profildaten fließen automatisch ein.
 
+### Gesundheits-Tracking
+
+Jede Katze bekommt zusätzlich einen kleinen Gesundheits-Tracker für **Wurmkur**, **Flohbehandlung** und **Arztbesuch**. Diese Werte sind *nicht* Teil der Flappie-Cloud — sie werden lokal in Home Assistant gepflegt und überleben Neustarts.
+
+| Entität | Typ | Beschreibung |
+|---|---|---|
+| Letzte Wurmkur / Flohbehandlung / Letzter Arztbesuch | Datum | Datum der letzten Behandlung setzen |
+| Intervall Wurmkur / Flohbehandlung / Arztbesuch (Monate) | Number (Konfiguration) | Individuelles Intervall pro Katze; Standard: Wurmkur 3, Flöhe 1, Arzt 12 |
+| Nächste Wurmkur / Flohbehandlung / Nächster Arztbesuch | Sensor (Datum) | Berechnet: letzte Behandlung + Intervall |
+| Wurmkur / Flohbehandlung / Arztbesuch fällig | Binärsensor | An, sobald der nächste Termin heute oder überschritten ist — ideal als Automatisierungs-Trigger |
+
+Typischer Ablauf: Nach der Behandlung die *Letzte …*-Datums-Entität antippen und das heutige Datum setzen — *Nächste …* und die Fällig-Anzeige aktualisieren sich sofort.
+
+Erinnerungs-Automatisierung:
+
+```yaml
+automation:
+  - alias: "Katzengesundheit: Wurmkur-Erinnerung"
+    triggers:
+      - trigger: state
+        entity_id: binary_sensor.<katze>_wurmkur_fallig
+        to: "on"
+    actions:
+      - action: notify.mobile_app_dein_handy
+        data:
+          title: "💊 Wurmkur fällig"
+          message: "Zeit für die nächste Wurmkur."
+```
+
 ## Langzeitstatistiken
 
 Die Integration importiert zwei externe Statistiken, nutzbar in der *Statistik-Diagramm*-Karte (sie erscheinen auch in den Statistik-Auswahlfeldern):

@@ -104,6 +104,35 @@ All entities are created per cat door. `<name>` below is your device name (HA ma
 
 Each cat profile becomes a device with **weight** (kg), **birthday** (date), **age** (years), **breed** and **gender** sensors and, if a profile photo is set in the app, an **avatar** image entity. Profile data maintained in the Flappie app flows in automatically.
 
+### Cat health tracking
+
+Each cat also gets a small health tracker for **deworming**, **flea treatment** and **vet visits**. These values are *not* part of the Flappie cloud — they live locally in Home Assistant and survive restarts.
+
+| Entity | Type | Description |
+|---|---|---|
+| Last deworming / flea treatment / vet visit | Date | Set the date when the treatment happened |
+| Deworming / flea treatment / vet visit interval (months) | Number (config) | Individual interval per cat; defaults: deworming 3, fleas 1, vet 12 |
+| Next deworming / flea treatment / vet visit | Sensor (date) | Computed: last treatment + interval |
+| Deworming / flea treatment / vet visit due | Binary sensor | On when the next date is today or in the past — ideal as an automation trigger |
+
+Typical flow: after the treatment, tap the *Last …* date entity and set today’s date — the *Next …* date and the *due* flag update instantly.
+
+Reminder automation example:
+
+```yaml
+automation:
+  - alias: "Cat health: deworming reminder"
+    triggers:
+      - trigger: state
+        entity_id: binary_sensor.<cat>_deworming_due
+        to: "on"
+    actions:
+      - action: notify.mobile_app_your_phone
+        data:
+          title: "💊 Deworming due"
+          message: "Time for the next deworming treatment."
+```
+
 ## Long-term statistics
 
 The integration imports two external statistics you can use in the *statistics graph* card (they also appear in the statistics pickers):

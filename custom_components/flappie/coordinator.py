@@ -5,7 +5,8 @@ from __future__ import annotations
 import asyncio
 import logging
 from dataclasses import dataclass, field
-from datetime import datetime, timedelta
+import calendar
+from datetime import date, datetime, timedelta
 from typing import Any
 
 from homeassistant.components.recorder import get_instance
@@ -27,9 +28,17 @@ except ImportError:  # pragma: no cover
     StatisticMeanType = None
 
 from .api import FlappieApiClient, FlappieApiError, FlappieAuthError
-from .const import DEFAULT_SCAN_INTERVAL, DOMAIN, SIGNAL_NEW_BUNDLE
+from .const import DEFAULT_SCAN_INTERVAL, DOMAIN, HEALTH_TYPES, SIGNAL_NEW_BUNDLE
 
 _LOGGER = logging.getLogger(__name__)
+
+
+def add_months(day: date, months: int) -> date:
+    """Monate kalendarisch addieren (31.01. + 1 Monat -> 28./29.02.)."""
+    month_index = day.month - 1 + months
+    year = day.year + month_index // 12
+    month = month_index % 12 + 1
+    return date(year, month, min(day.day, calendar.monthrange(year, month)[1]))
 
 
 def parse_flappie_datetime(value: str | None) -> datetime | None:
@@ -94,6 +103,16 @@ class FlappieCoordinator(DataUpdateCoordinator[FlappieData]):
         self._information: dict[str, dict[str, Any]] = {}
         self._known_bundle_ids: set[int] | None = None
         self._stats_last_sync: datetime | None = None
+        # Lokal gepflegtes Gesundheits-Tracking je (Katze, Behandlungsart);
+        # Persistenz uebernehmen die Date-/Number-Entitaeten (RestoreEntity).
+        self.health: dict[tuple[int, str], dict[str, Any]] = {}
+
+    def health_entry(self, cat_id: int, health_type: str) -> dict[str, Any]:
+        """Eintrag {last: date|None, interval: Monate} liefern/anlegen."""
+        return self.health.setdefault(
+            (cat_id, health_type),
+            {"last": None, "interval": HEALTH_TYPES[health_type]},
+        )
 
     async def _async_update_data(self) -> FlappieData:
         try:

@@ -1,5 +1,9 @@
 # Changelog
 
+## 0.6.0 — 2026-08-14
+
+- **Cat health tracking** per cat for deworming, flea treatment and vet visits: settable *last treatment* date, per-cat *interval in months* (defaults: 3/1/12), computed *next due* date and a *due* binary sensor for automations. Values are stored locally in Home Assistant (restart-safe) — the Flappie cloud has no such data.
+
 ## 0.5.0 — 2026-08-14
 
 - New per-cat sensors: **Birthday** (date), **Age** (years), **Breed** and **Gender** (translated enum) — previously only available as attributes on the weight sensor
