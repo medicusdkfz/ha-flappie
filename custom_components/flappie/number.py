@@ -11,6 +11,7 @@ from . import FlappieConfigEntry
 from .const import (
     HEALTH_INTERVAL_MAX,
     HEALTH_TYPES,
+    PREY_LOCK_MINUTES_LIMIT,
     PREY_LOCK_MINUTES_MAX,
     PREY_LOCK_MINUTES_MIN,
 )
@@ -103,8 +104,12 @@ class FlappiePreyLockDuration(FlappieEntity, NumberEntity):
 
     @property
     def native_max_value(self) -> float:
-        # In der App gesetzte laengere Sperren bleiben bedienbar.
-        return max(PREY_LOCK_MINUTES_MAX, self.native_value or 0)
+        # In der App gesetzte laengere Sperren bleiben bedienbar, aber der
+        # Slider darf nie ueber das Backend-Limit hinausreichen (HTTP 422).
+        return min(
+            PREY_LOCK_MINUTES_LIMIT,
+            max(PREY_LOCK_MINUTES_MAX, self.native_value or 0),
+        )
 
     @property
     def native_value(self) -> int | None:

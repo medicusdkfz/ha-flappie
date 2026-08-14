@@ -72,7 +72,7 @@ All entities are created per cat door. `<name>` below is your device name (HA ma
 | Door mode | Select | All four policies: open (both ways), closed (both ways), entry only, exit only |
 | Prey detection | Switch | Toggle the AI prey detection |
 | Prey timed lock | Switch | Automatic lock after a prey detection |
-| Prey lock duration | Number | Slider in minutes, 1–10. A longer duration set in the app (default: 15 min) stays visible and adjustable |
+| Prey lock duration | Number | Slider in minutes, 1–10. A longer duration set in the app (default: 15 min) stays visible and adjustable, up to the cloud's own limit of 60 min |
 | Buttons | Switch | Physical buttons on the door |
 | RFID | Switch | Backend flag of unknown effect — the vendor states the door does **not** read microchips (access control is camera-based “Cat ID”). Hidden by default. |
 

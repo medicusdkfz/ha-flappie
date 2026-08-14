@@ -1,5 +1,9 @@
 # Changelog
 
+## 0.8.5 — 2026-08-14
+
+- **Fixed: the prey lock duration could be set to values the cloud rejects.** The API caps `prey_timed_lock_duration_seconds` at 3600 s and answers anything above with HTTP 422; the entity used to offer up to 86400 s. The slider now never exceeds 60 minutes, even when a longer value is read back from the cloud
+
 ## 0.8.4 — 2026-08-14
 
 - **Prey lock duration is now a slider in minutes** (1–10) instead of a seconds input box — the cloud keeps storing seconds, the entity converts. If the app holds a longer duration (its default is 15 min), the entity raises its own maximum to that value so the setting stays visible and adjustable
