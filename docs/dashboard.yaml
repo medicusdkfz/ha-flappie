@@ -103,12 +103,32 @@ views:
             icon: mdi:cat
           - type: tile
             entity: sensor.YOUR_CAT_1_weight
-            name: Cat 1
+            name: Cat 1 – Gewicht
+            grid_options:
+              columns: full
+          - type: tile
+            entity: sensor.YOUR_CAT_1_age
+            name: Cat 1 – Alter
+            grid_options:
+              columns: full
+          - type: tile
+            entity: sensor.YOUR_CAT_1_birthday
+            name: Cat 1 – Geburtstag
             grid_options:
               columns: full
           - type: tile
             entity: sensor.YOUR_CAT_2_weight
-            name: Cat 2
+            name: Cat 2 – Gewicht
+            grid_options:
+              columns: full
+          - type: tile
+            entity: sensor.YOUR_CAT_2_age
+            name: Cat 2 – Alter
+            grid_options:
+              columns: full
+          - type: tile
+            entity: sensor.YOUR_CAT_2_birthday
+            name: Cat 2 – Geburtstag
             grid_options:
               columns: full
           - type: heading
