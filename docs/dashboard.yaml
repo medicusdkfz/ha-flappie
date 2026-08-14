@@ -67,6 +67,43 @@ views:
             name: Zeitplan aktiv
             grid_options:
               columns: full
+          - type: heading
+            heading: Statistiken
+            icon: mdi:chart-bar
+          - type: tile
+            entity: sensor.YOUR_DEVICE_ereignisse_heute
+            name: Ereignisse heute
+            grid_options:
+              columns: full
+          - type: tile
+            entity: sensor.YOUR_DEVICE_beute_heute
+            name: Beute heute
+            grid_options:
+              columns: full
+          - type: statistics-graph
+            title: Aktivität pro Tag
+            chart_type: bar
+            period: day
+            days_to_show: 14
+            hide_legend: true
+            stat_types:
+              - change
+            entities:
+              - flappie:activity_daily
+            grid_options:
+              columns: full
+          - type: statistics-graph
+            title: Beute pro Tag
+            chart_type: bar
+            period: day
+            days_to_show: 60
+            hide_legend: true
+            stat_types:
+              - change
+            entities:
+              - flappie:prey_daily
+            grid_options:
+              columns: full
       - type: grid
         cards:
           - type: heading
@@ -364,40 +401,3 @@ views:
               - condition: numeric_state
                 entity: sensor.YOUR_CAT_2_tage_bis_arztbesuch
                 above: -100000
-          - type: heading
-            heading: Statistiken
-            icon: mdi:chart-bar
-          - type: tile
-            entity: sensor.YOUR_DEVICE_ereignisse_heute
-            name: Ereignisse heute
-            grid_options:
-              columns: full
-          - type: tile
-            entity: sensor.YOUR_DEVICE_beute_heute
-            name: Beute heute
-            grid_options:
-              columns: full
-          - type: statistics-graph
-            title: Aktivität pro Tag
-            chart_type: bar
-            period: day
-            days_to_show: 14
-            hide_legend: true
-            stat_types:
-              - change
-            entities:
-              - flappie:activity_daily
-            grid_options:
-              columns: full
-          - type: statistics-graph
-            title: Beute pro Tag
-            chart_type: bar
-            period: day
-            days_to_show: 60
-            hide_legend: true
-            stat_types:
-              - change
-            entities:
-              - flappie:prey_daily
-            grid_options:
-              columns: full
