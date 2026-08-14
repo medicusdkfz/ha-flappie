@@ -99,6 +99,20 @@ views:
       - type: grid
         cards:
           - type: heading
+            heading: Behandlungs-Optionen
+            heading_style: subtitle
+            icon: mdi:tune
+          - type: tile
+            entity: switch.YOUR_DEVICE_treatments_link_cats
+            name: Katzen koppeln
+            grid_options:
+              columns: 6
+          - type: tile
+            entity: switch.YOUR_DEVICE_treatments_combo_product_worms_fleas
+            name: Kombipräparat
+            grid_options:
+              columns: 6
+          - type: heading
             heading: Cat 1
             icon: mdi:cat
           - type: tile
@@ -126,36 +140,32 @@ views:
             grid_options:
               columns: 6
           - type: tile
-            entity: sensor.YOUR_CAT_1_nachste_wurmkur
-            name: Fällig am
-            color: red
+            entity: number.YOUR_CAT_1_intervall_wurmkur_monate
+            name: Intervall
+            features:
+              - type: numeric-input
+                style: slider
             grid_options:
               columns: 6
-            visibility:
-              - condition: numeric_state
-                entity: sensor.YOUR_CAT_1_tage_bis_wurmkur
-                below: 0
           - type: tile
             entity: sensor.YOUR_CAT_1_nachste_wurmkur
             name: Fällig am
-            color: orange
             grid_options:
-              columns: 6
+              columns: full
+            card_mod:
+              style: |
+                ha-card {
+                  {% set d = states('sensor.YOUR_CAT_1_tage_bis_wurmkur') | int(9999) %}
+                  background-color:
+                    {% if d < 0 %} rgba(244, 67, 54, 0.4)
+                    {% elif d < 15 %} rgba(255, 152, 0, 0.4)
+                    {% else %} rgba(76, 175, 80, 0.4)
+                    {% endif %};
+                }
             visibility:
               - condition: numeric_state
                 entity: sensor.YOUR_CAT_1_tage_bis_wurmkur
-                above: -1
-                below: 15
-          - type: tile
-            entity: sensor.YOUR_CAT_1_nachste_wurmkur
-            name: Fällig am
-            color: green
-            grid_options:
-              columns: 6
-            visibility:
-              - condition: numeric_state
-                entity: sensor.YOUR_CAT_1_tage_bis_wurmkur
-                above: 14
+                above: -100000
           - type: heading
             heading: Flohbehandlung
             heading_style: subtitle
@@ -166,36 +176,32 @@ views:
             grid_options:
               columns: 6
           - type: tile
-            entity: sensor.YOUR_CAT_1_nachste_flohbehandlung
-            name: Fällig am
-            color: red
+            entity: number.YOUR_CAT_1_intervall_flohbehandlung_monate
+            name: Intervall
+            features:
+              - type: numeric-input
+                style: slider
             grid_options:
               columns: 6
-            visibility:
-              - condition: numeric_state
-                entity: sensor.YOUR_CAT_1_tage_bis_flohbehandlung
-                below: 0
           - type: tile
             entity: sensor.YOUR_CAT_1_nachste_flohbehandlung
             name: Fällig am
-            color: orange
             grid_options:
-              columns: 6
+              columns: full
+            card_mod:
+              style: |
+                ha-card {
+                  {% set d = states('sensor.YOUR_CAT_1_tage_bis_flohbehandlung') | int(9999) %}
+                  background-color:
+                    {% if d < 0 %} rgba(244, 67, 54, 0.4)
+                    {% elif d < 15 %} rgba(255, 152, 0, 0.4)
+                    {% else %} rgba(76, 175, 80, 0.4)
+                    {% endif %};
+                }
             visibility:
               - condition: numeric_state
                 entity: sensor.YOUR_CAT_1_tage_bis_flohbehandlung
-                above: -1
-                below: 15
-          - type: tile
-            entity: sensor.YOUR_CAT_1_nachste_flohbehandlung
-            name: Fällig am
-            color: green
-            grid_options:
-              columns: 6
-            visibility:
-              - condition: numeric_state
-                entity: sensor.YOUR_CAT_1_tage_bis_flohbehandlung
-                above: 14
+                above: -100000
           - type: heading
             heading: Arztbesuch
             heading_style: subtitle
@@ -206,36 +212,32 @@ views:
             grid_options:
               columns: 6
           - type: tile
-            entity: sensor.YOUR_CAT_1_nachster_arztbesuch
-            name: Fällig am
-            color: red
+            entity: number.YOUR_CAT_1_intervall_arztbesuch_monate
+            name: Intervall
+            features:
+              - type: numeric-input
+                style: slider
             grid_options:
               columns: 6
-            visibility:
-              - condition: numeric_state
-                entity: sensor.YOUR_CAT_1_tage_bis_arztbesuch
-                below: 0
           - type: tile
             entity: sensor.YOUR_CAT_1_nachster_arztbesuch
             name: Fällig am
-            color: orange
             grid_options:
-              columns: 6
+              columns: full
+            card_mod:
+              style: |
+                ha-card {
+                  {% set d = states('sensor.YOUR_CAT_1_tage_bis_arztbesuch') | int(9999) %}
+                  background-color:
+                    {% if d < 0 %} rgba(244, 67, 54, 0.4)
+                    {% elif d < 15 %} rgba(255, 152, 0, 0.4)
+                    {% else %} rgba(76, 175, 80, 0.4)
+                    {% endif %};
+                }
             visibility:
               - condition: numeric_state
                 entity: sensor.YOUR_CAT_1_tage_bis_arztbesuch
-                above: -1
-                below: 15
-          - type: tile
-            entity: sensor.YOUR_CAT_1_nachster_arztbesuch
-            name: Fällig am
-            color: green
-            grid_options:
-              columns: 6
-            visibility:
-              - condition: numeric_state
-                entity: sensor.YOUR_CAT_1_tage_bis_arztbesuch
-                above: 14
+                above: -100000
           - type: heading
             heading: Cat 2
             icon: mdi:cat
@@ -264,36 +266,32 @@ views:
             grid_options:
               columns: 6
           - type: tile
-            entity: sensor.YOUR_CAT_2_nachste_wurmkur
-            name: Fällig am
-            color: red
+            entity: number.YOUR_CAT_2_intervall_wurmkur_monate
+            name: Intervall
+            features:
+              - type: numeric-input
+                style: slider
             grid_options:
               columns: 6
-            visibility:
-              - condition: numeric_state
-                entity: sensor.YOUR_CAT_2_tage_bis_wurmkur
-                below: 0
           - type: tile
             entity: sensor.YOUR_CAT_2_nachste_wurmkur
             name: Fällig am
-            color: orange
             grid_options:
-              columns: 6
+              columns: full
+            card_mod:
+              style: |
+                ha-card {
+                  {% set d = states('sensor.YOUR_CAT_2_tage_bis_wurmkur') | int(9999) %}
+                  background-color:
+                    {% if d < 0 %} rgba(244, 67, 54, 0.4)
+                    {% elif d < 15 %} rgba(255, 152, 0, 0.4)
+                    {% else %} rgba(76, 175, 80, 0.4)
+                    {% endif %};
+                }
             visibility:
               - condition: numeric_state
                 entity: sensor.YOUR_CAT_2_tage_bis_wurmkur
-                above: -1
-                below: 15
-          - type: tile
-            entity: sensor.YOUR_CAT_2_nachste_wurmkur
-            name: Fällig am
-            color: green
-            grid_options:
-              columns: 6
-            visibility:
-              - condition: numeric_state
-                entity: sensor.YOUR_CAT_2_tage_bis_wurmkur
-                above: 14
+                above: -100000
           - type: heading
             heading: Flohbehandlung
             heading_style: subtitle
@@ -304,36 +302,32 @@ views:
             grid_options:
               columns: 6
           - type: tile
-            entity: sensor.YOUR_CAT_2_nachste_flohbehandlung
-            name: Fällig am
-            color: red
+            entity: number.YOUR_CAT_2_intervall_flohbehandlung_monate
+            name: Intervall
+            features:
+              - type: numeric-input
+                style: slider
             grid_options:
               columns: 6
-            visibility:
-              - condition: numeric_state
-                entity: sensor.YOUR_CAT_2_tage_bis_flohbehandlung
-                below: 0
           - type: tile
             entity: sensor.YOUR_CAT_2_nachste_flohbehandlung
             name: Fällig am
-            color: orange
             grid_options:
-              columns: 6
+              columns: full
+            card_mod:
+              style: |
+                ha-card {
+                  {% set d = states('sensor.YOUR_CAT_2_tage_bis_flohbehandlung') | int(9999) %}
+                  background-color:
+                    {% if d < 0 %} rgba(244, 67, 54, 0.4)
+                    {% elif d < 15 %} rgba(255, 152, 0, 0.4)
+                    {% else %} rgba(76, 175, 80, 0.4)
+                    {% endif %};
+                }
             visibility:
               - condition: numeric_state
                 entity: sensor.YOUR_CAT_2_tage_bis_flohbehandlung
-                above: -1
-                below: 15
-          - type: tile
-            entity: sensor.YOUR_CAT_2_nachste_flohbehandlung
-            name: Fällig am
-            color: green
-            grid_options:
-              columns: 6
-            visibility:
-              - condition: numeric_state
-                entity: sensor.YOUR_CAT_2_tage_bis_flohbehandlung
-                above: 14
+                above: -100000
           - type: heading
             heading: Arztbesuch
             heading_style: subtitle
@@ -344,36 +338,32 @@ views:
             grid_options:
               columns: 6
           - type: tile
-            entity: sensor.YOUR_CAT_2_nachster_arztbesuch
-            name: Fällig am
-            color: red
+            entity: number.YOUR_CAT_2_intervall_arztbesuch_monate
+            name: Intervall
+            features:
+              - type: numeric-input
+                style: slider
             grid_options:
               columns: 6
-            visibility:
-              - condition: numeric_state
-                entity: sensor.YOUR_CAT_2_tage_bis_arztbesuch
-                below: 0
           - type: tile
             entity: sensor.YOUR_CAT_2_nachster_arztbesuch
             name: Fällig am
-            color: orange
             grid_options:
-              columns: 6
+              columns: full
+            card_mod:
+              style: |
+                ha-card {
+                  {% set d = states('sensor.YOUR_CAT_2_tage_bis_arztbesuch') | int(9999) %}
+                  background-color:
+                    {% if d < 0 %} rgba(244, 67, 54, 0.4)
+                    {% elif d < 15 %} rgba(255, 152, 0, 0.4)
+                    {% else %} rgba(76, 175, 80, 0.4)
+                    {% endif %};
+                }
             visibility:
               - condition: numeric_state
                 entity: sensor.YOUR_CAT_2_tage_bis_arztbesuch
-                above: -1
-                below: 15
-          - type: tile
-            entity: sensor.YOUR_CAT_2_nachster_arztbesuch
-            name: Fällig am
-            color: green
-            grid_options:
-              columns: 6
-            visibility:
-              - condition: numeric_state
-                entity: sensor.YOUR_CAT_2_tage_bis_arztbesuch
-                above: 14
+                above: -100000
           - type: heading
             heading: Statistiken
             icon: mdi:chart-bar
