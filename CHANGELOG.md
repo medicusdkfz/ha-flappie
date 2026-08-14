@@ -1,5 +1,9 @@
 # Changelog
 
+## 0.8.6 — 2026-08-14
+
+- Prey lock duration slider now spans **1–60 minutes** — exactly the range the cloud accepts, so the dynamic maximum from 0.8.5 is gone
+
 ## 0.8.5 — 2026-08-14
 
 - **Fixed: the prey lock duration could be set to values the cloud rejects.** The API caps `prey_timed_lock_duration_seconds` at 3600 s and answers anything above with HTTP 422; the entity used to offer up to 86400 s. The slider now never exceeds 60 minutes, even when a longer value is read back from the cloud
