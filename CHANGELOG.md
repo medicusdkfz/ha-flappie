@@ -1,5 +1,9 @@
 # Changelog
 
+## 0.8.2 — 2026-08-14
+
+- CI runs the full HACS validation without the `brands` exception (the shipped brand icon satisfies the check) — prerequisite for the listing in the HACS default store
+
 ## 0.8.1 — 2026-08-14
 
 - Ship the brand icon directly with the integration (`brand/icon.png`, supported since Home Assistant 2026.3) — the “icon not available” placeholder in the integrations page and HACS is gone. The home-assistant/brands repository no longer accepts icons for custom integrations.
