@@ -117,6 +117,27 @@ Each cat also gets a small health tracker for **deworming**, **flea treatment** 
 
 Typical flow: after the treatment, tap the *Last …* date entity and set today’s date — the *Next …* date and the *due* flag update instantly.
 
+On every real user change the integration fires the event **`flappie_health_updated`** with `cat_id`, `cat_name`, `health_type` (`worms`/`fleas`/`vet`), `last`, `interval_months` and `next_due` (ISO date). Use this event — *not* a state trigger on the sensors — to create calendar entries, because entity state changes also occur on Home Assistant restarts and would duplicate events:
+
+```yaml
+automation:
+  - alias: "Cat health: calendar entry"
+    triggers:
+      - trigger: event
+        event_type: flappie_health_updated
+    actions:
+      - action: calendar.create_event
+        target:
+          entity_id: calendar.family
+        data:
+          summary: >-
+            🐱 {{ trigger.event.data.cat_name }} {{ {'worms': 'Deworming',
+            'fleas': 'Flea treatment', 'vet': 'Vet visit'}[trigger.event.data.health_type] }}
+          start_date: "{{ trigger.event.data.next_due }}"
+          end_date: "{{ (trigger.event.data.next_due | as_datetime + timedelta(days=1)).date() }}"
+    mode: queued
+```
+
 Reminder automation example:
 
 ```yaml

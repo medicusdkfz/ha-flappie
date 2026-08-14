@@ -1,5 +1,9 @@
 # Changelog
 
+## 0.7.1 — 2026-08-14
+
+- New event **`flappie_health_updated`** fired only on real user changes to the health tracker (never on restore after a restart) with `cat_name`, `health_type`, `last`, `interval_months` and `next_due` — the reliable trigger for calendar automations. Triggering on the *next due* sensors instead creates duplicate calendar entries on every Home Assistant restart.
+
 ## 0.7.0 — 2026-08-14
 
 - New **Days until …** sensor per treatment (negative = overdue) — enables numeric dashboard conditions such as traffic-light colouring (red overdue, orange ≤ 14 days, green otherwise)

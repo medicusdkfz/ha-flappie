@@ -38,6 +38,10 @@ HEALTH_TYPES: dict[str, int] = {
     "vet": 12,    # Arztbesuch
 }
 
+# Wird bei echten Benutzeraenderungen am Gesundheits-Tracking gefeuert
+# (nicht beim Restore nach Neustarts) — als Trigger fuer Automatisierungen.
+EVENT_HEALTH_UPDATED = "flappie_health_updated"
+
 HEALTH_ICONS: dict[str, str] = {
     "worms": "mdi:pill",
     "fleas": "mdi:bug-outline",

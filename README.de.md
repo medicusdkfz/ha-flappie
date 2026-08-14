@@ -116,6 +116,27 @@ Jede Katze bekommt zusätzlich einen kleinen Gesundheits-Tracker für **Wurmkur*
 
 Typischer Ablauf: Nach der Behandlung die *Letzte …*-Datums-Entität antippen und das heutige Datum setzen — *Nächste …* und die Fällig-Anzeige aktualisieren sich sofort.
 
+Bei jeder echten Benutzeränderung feuert die Integration das Event **`flappie_health_updated`** mit `cat_id`, `cat_name`, `health_type` (`worms`/`fleas`/`vet`), `last`, `interval_months` und `next_due` (ISO-Datum). Für Kalendereinträge dieses Event verwenden — *nicht* einen State-Trigger auf die Sensoren, denn Zustandswechsel passieren auch bei HA-Neustarts und würden Duplikate erzeugen:
+
+```yaml
+automation:
+  - alias: "Katzengesundheit: Kalendereintrag"
+    triggers:
+      - trigger: event
+        event_type: flappie_health_updated
+    actions:
+      - action: calendar.create_event
+        target:
+          entity_id: calendar.familie
+        data:
+          summary: >-
+            🐱 {{ trigger.event.data.cat_name }} {{ {'worms': 'Wurmkur',
+            'fleas': 'Flohbehandlung', 'vet': 'Arztbesuch'}[trigger.event.data.health_type] }}
+          start_date: "{{ trigger.event.data.next_due }}"
+          end_date: "{{ (trigger.event.data.next_due | as_datetime + timedelta(days=1)).date() }}"
+    mode: queued
+```
+
 Erinnerungs-Automatisierung:
 
 ```yaml

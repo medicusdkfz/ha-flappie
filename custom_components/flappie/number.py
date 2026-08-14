@@ -8,7 +8,8 @@ from homeassistant.core import HomeAssistant
 from homeassistant.helpers.entity_platform import AddEntitiesCallback
 
 from . import FlappieConfigEntry
-from .const import HEALTH_TYPES
+from .const import EVENT_HEALTH_UPDATED, HEALTH_TYPES
+from .coordinator import add_months
 from .entity import FlappieCatEntity, FlappieEntity
 
 
@@ -73,6 +74,19 @@ class FlappieHealthInterval(FlappieCatEntity, RestoreNumber):
         entry = self.coordinator.health_entry(self._cat_id, self._health_type)
         entry["interval"] = int(value)
         self.coordinator.async_update_listeners()
+        # Nur bei echten Benutzeraktionen; ohne gesetztes Datum kein Termin.
+        if entry["last"] is not None:
+            self.hass.bus.async_fire(
+                EVENT_HEALTH_UPDATED,
+                {
+                    "cat_id": self._cat_id,
+                    "cat_name": self.cat.get("name"),
+                    "health_type": self._health_type,
+                    "last": entry["last"].isoformat(),
+                    "interval_months": entry["interval"],
+                    "next_due": add_months(entry["last"], entry["interval"]).isoformat(),
+                },
+            )
 
 
 class FlappiePreyLockDuration(FlappieEntity, NumberEntity):
