@@ -102,7 +102,7 @@ All entities are created per cat door. `<name>` below is your device name (HA ma
 
 ### Cats
 
-Each cat profile becomes a device with a **weight** sensor (kg; `birthday`, `gender`, `breed` as attributes) and, if a profile photo is set in the app, an **avatar** image entity. Profile data maintained in the Flappie app flows in automatically.
+Each cat profile becomes a device with **weight** (kg), **birthday** (date), **age** (years), **breed** and **gender** sensors and, if a profile photo is set in the app, an **avatar** image entity. Profile data maintained in the Flappie app flows in automatically.
 
 ## Long-term statistics
 

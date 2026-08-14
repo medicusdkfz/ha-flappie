@@ -81,6 +81,17 @@
       "signal_quality": { "name": "Signalqualität" },
       "blocked_prey": { "name": "Blockierte Beute" },
       "cat_weight": { "name": "Gewicht" },
+      "cat_birthday": { "name": "Geburtstag" },
+      "cat_age": { "name": "Alter" },
+      "cat_breed": { "name": "Rasse" },
+      "cat_gender": {
+        "name": "Geschlecht",
+        "state": {
+          "female": "Weiblich",
+          "male": "Männlich",
+          "unknown": "Unbekannt"
+        }
+      },
       "activity_today": { "name": "Ereignisse heute" },
       "prey_today": { "name": "Beute heute" }
     },

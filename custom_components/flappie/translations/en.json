@@ -81,6 +81,17 @@
       "signal_quality": { "name": "Signal quality" },
       "blocked_prey": { "name": "Blocked prey" },
       "cat_weight": { "name": "Weight" },
+      "cat_birthday": { "name": "Birthday" },
+      "cat_age": { "name": "Age" },
+      "cat_breed": { "name": "Breed" },
+      "cat_gender": {
+        "name": "Gender",
+        "state": {
+          "female": "Female",
+          "male": "Male",
+          "unknown": "Unknown"
+        }
+      },
       "activity_today": { "name": "Events today" },
       "prey_today": { "name": "Prey today" }
     },

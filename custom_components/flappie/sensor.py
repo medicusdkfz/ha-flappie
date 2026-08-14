@@ -4,7 +4,7 @@ from __future__ import annotations
 
 from collections.abc import Callable
 from dataclasses import dataclass
-from datetime import datetime
+from datetime import date, datetime
 from typing import Any
 
 from homeassistant.components.sensor import (
@@ -16,6 +16,7 @@ from homeassistant.components.sensor import (
 from homeassistant.const import EntityCategory, UnitOfMass
 from homeassistant.core import HomeAssistant
 from homeassistant.helpers.entity_platform import AddEntitiesCallback
+from homeassistant.util import dt as dt_util
 
 from . import FlappieConfigEntry
 from .coordinator import FlappieDeviceData, parse_flappie_datetime
@@ -100,6 +101,11 @@ async def async_setup_entry(
     entities.extend(
         FlappieCatWeightSensor(coordinator, cat_id, first_device_id)
         for cat_id in coordinator.data.cats
+    )
+    entities.extend(
+        FlappieCatProfileSensor(coordinator, cat_id, first_device_id, description)
+        for cat_id in coordinator.data.cats
+        for description in CAT_PROFILE_SENSORS
     )
     async_add_entities(entities)
 
@@ -209,6 +215,85 @@ class FlappieTodaySensor(FlappieEntity, SensorEntity):
     @property
     def native_value(self) -> int | None:
         return getattr(self.coordinator.data, self.entity_description.data_field)
+
+
+def _parse_cat_birthday(cat: dict[str, Any]) -> date | None:
+    value = cat.get("birthday")
+    if not value:
+        return None
+    try:
+        return date.fromisoformat(value[:10])
+    except ValueError:
+        return None
+
+
+def _cat_age_years(cat: dict[str, Any]) -> int | None:
+    birthday = _parse_cat_birthday(cat)
+    if birthday is None:
+        return None
+    today = dt_util.now().date()
+    return (
+        today.year
+        - birthday.year
+        - ((today.month, today.day) < (birthday.month, birthday.day))
+    )
+
+
+@dataclass(frozen=True, kw_only=True)
+class FlappieCatSensorDescription(SensorEntityDescription):
+    """Sensor aus dem Katzenprofil."""
+
+    value_fn: Callable[[dict[str, Any]], Any]
+
+
+CAT_PROFILE_SENSORS: tuple[FlappieCatSensorDescription, ...] = (
+    FlappieCatSensorDescription(
+        key="cat_birthday",
+        translation_key="cat_birthday",
+        device_class=SensorDeviceClass.DATE,
+        value_fn=_parse_cat_birthday,
+    ),
+    FlappieCatSensorDescription(
+        key="cat_age",
+        translation_key="cat_age",
+        icon="mdi:cake-variant",
+        value_fn=_cat_age_years,
+    ),
+    FlappieCatSensorDescription(
+        key="cat_breed",
+        translation_key="cat_breed",
+        icon="mdi:cat",
+        value_fn=lambda cat: cat.get("breed"),
+    ),
+    FlappieCatSensorDescription(
+        key="cat_gender",
+        translation_key="cat_gender",
+        device_class=SensorDeviceClass.ENUM,
+        options=["female", "male", "unknown"],
+        icon="mdi:gender-male-female",
+        value_fn=lambda cat: (cat.get("gender") or "").lower() or None,
+    ),
+)
+
+
+class FlappieCatProfileSensor(FlappieCatEntity, SensorEntity):
+    """Stammdaten aus dem Katzenprofil (in der App gepflegt)."""
+
+    entity_description: FlappieCatSensorDescription
+
+    def __init__(
+        self,
+        coordinator,
+        cat_id: int,
+        via_device_id: str | None,
+        description: FlappieCatSensorDescription,
+    ) -> None:
+        super().__init__(coordinator, cat_id, description.key, via_device_id)
+        self.entity_description = description
+
+    @property
+    def native_value(self) -> Any:
+        return self.entity_description.value_fn(self.cat)
 
 
 class FlappieCatWeightSensor(FlappieCatEntity, SensorEntity):

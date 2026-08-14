@@ -1,5 +1,9 @@
 # Changelog
 
+## 0.5.0 — 2026-08-14
+
+- New per-cat sensors: **Birthday** (date), **Age** (years), **Breed** and **Gender** (translated enum) — previously only available as attributes on the weight sensor
+
 ## 0.4.2 — 2026-08-14
 
 - Fixed: cloud timestamps are timezone-naive **local time** (the device's `zone_info`), not UTC — all event timestamps were shifted by the UTC offset (e.g. +2 h in CEST). Verified against a real flap passage. Timestamps are now interpreted in Home Assistant's local timezone.

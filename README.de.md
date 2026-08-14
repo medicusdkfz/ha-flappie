@@ -101,7 +101,7 @@ Alle Entitäten werden pro Katzenklappe angelegt. `<name>` steht für den Gerät
 
 ### Katzen
 
-Jedes Katzenprofil wird ein Gerät mit **Gewichts**-Sensor (kg; `birthday`, `gender`, `breed` als Attribute) und, falls in der App ein Profilfoto gesetzt ist, einer **Profilbild**-Entität. In der App gepflegte Profildaten fließen automatisch ein.
+Jedes Katzenprofil wird ein Gerät mit Sensoren für **Gewicht** (kg), **Geburtstag** (Datum), **Alter** (Jahre), **Rasse** und **Geschlecht** und, falls in der App ein Profilfoto gesetzt ist, einer **Profilbild**-Entität. In der App gepflegte Profildaten fließen automatisch ein.
 
 ## Langzeitstatistiken
 
