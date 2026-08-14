@@ -71,7 +71,7 @@ Alle Entitäten werden pro Katzenklappe angelegt. `<name>` steht für den Gerät
 | Türmodus | Select | Alle vier Policies: Offen, Geschlossen, Nur Eingang, Nur Ausgang |
 | Beuteerkennung | Switch | KI-Beuteerkennung an/aus |
 | Beute-Zeitsperre | Switch | Automatische Sperre nach Beutefund |
-| Dauer Beutesperre | Number | Sperrdauer in Sekunden (App-Standard: 900) |
+| Dauer Beutesperre | Number | Schieberegler in Minuten, 1–10. Eine in der App gesetzte längere Dauer (Standard: 15 Min.) bleibt sichtbar und einstellbar |
 | Tasten | Switch | Physische Tasten an der Klappe |
 | RFID | Switch | Backend-Flag mit unbekannter Wirkung — laut Hersteller liest die Klappe **keine** Mikrochips (Zutrittskontrolle ist das kamerabasierte „Cat ID"). Standardmäßig ausgeblendet. |
 

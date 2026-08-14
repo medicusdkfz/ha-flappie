@@ -8,7 +8,12 @@ from homeassistant.core import HomeAssistant
 from homeassistant.helpers.entity_platform import AddEntitiesCallback
 
 from . import FlappieConfigEntry
-from .const import HEALTH_INTERVAL_MAX, HEALTH_TYPES
+from .const import (
+    HEALTH_INTERVAL_MAX,
+    HEALTH_TYPES,
+    PREY_LOCK_MINUTES_MAX,
+    PREY_LOCK_MINUTES_MIN,
+)
 from .entity import FlappieCatEntity, FlappieEntity
 
 
@@ -83,14 +88,13 @@ class FlappieHealthInterval(FlappieCatEntity, RestoreNumber):
 
 
 class FlappiePreyLockDuration(FlappieEntity, NumberEntity):
-    """prey_timed_lock_duration_seconds (Standard der App: 900 s)."""
+    """prey_timed_lock_duration_seconds, als Minuten-Slider (Standard der App: 900 s)."""
 
     _attr_translation_key = "prey_lock_duration"
-    _attr_native_unit_of_measurement = UnitOfTime.SECONDS
-    _attr_native_min_value = 60
-    _attr_native_max_value = 86400
-    _attr_native_step = 60
-    _attr_mode = NumberMode.BOX
+    _attr_native_unit_of_measurement = UnitOfTime.MINUTES
+    _attr_native_min_value = PREY_LOCK_MINUTES_MIN
+    _attr_native_step = 1
+    _attr_mode = NumberMode.SLIDER
     _attr_entity_category = EntityCategory.CONFIG
     _attr_icon = "mdi:timer-lock-outline"
 
@@ -98,10 +102,18 @@ class FlappiePreyLockDuration(FlappieEntity, NumberEntity):
         super().__init__(coordinator, device_id, "prey_lock_duration")
 
     @property
+    def native_max_value(self) -> float:
+        # In der App gesetzte laengere Sperren bleiben bedienbar.
+        return max(PREY_LOCK_MINUTES_MAX, self.native_value or 0)
+
+    @property
     def native_value(self) -> int | None:
-        return self.device_data.settings.get("prey_timed_lock_duration_seconds")
+        seconds = self.device_data.settings.get("prey_timed_lock_duration_seconds")
+        if seconds is None:
+            return None
+        return max(PREY_LOCK_MINUTES_MIN, round(seconds / 60))
 
     async def async_set_native_value(self, value: float) -> None:
         await self.coordinator.async_patch_settings(
-            self._device_id, {"prey_timed_lock_duration_seconds": int(value)}
+            self._device_id, {"prey_timed_lock_duration_seconds": int(value) * 60}
         )

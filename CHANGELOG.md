@@ -1,5 +1,9 @@
 # Changelog
 
+## 0.8.4 — 2026-08-14
+
+- **Prey lock duration is now a slider in minutes** (1–10) instead of a seconds input box — the cloud keeps storing seconds, the entity converts. If the app holds a longer duration (its default is 15 min), the entity raises its own maximum to that value so the setting stays visible and adjustable
+
 ## 0.8.3 — 2026-08-14
 
 - **French and Italian translations** (`translations/fr.json`, `translations/it.json`) — Flappie is a Swiss product, so German, French and Italian users are now covered in their own language

@@ -40,6 +40,13 @@ HEALTH_TYPES: dict[str, int] = {
 
 HEALTH_INTERVAL_MAX = 12  # Monate
 
+# Dauer der Beute-Zeitsperre, als Minuten-Slider gefuehrt (Cloud speichert
+# Sekunden). Liegt der Cloud-Wert darueber — die App erlaubt mehr, ihr
+# Standard sind 900 s — hebt die Entitaet ihr Maximum darauf an, damit der
+# bestehende Wert darstellbar bleibt.
+PREY_LOCK_MINUTES_MIN = 1
+PREY_LOCK_MINUTES_MAX = 10
+
 # Wird bei echten Benutzeraenderungen am Gesundheits-Tracking gefeuert
 # (nicht beim Restore nach Neustarts) — als Trigger fuer Automatisierungen.
 EVENT_HEALTH_UPDATED = "flappie_health_updated"
