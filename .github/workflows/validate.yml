@@ -23,6 +23,3 @@ jobs:
       - uses: hacs/action@main
         with:
           category: integration
-          # "brands" erfordert einen Eintrag im home-assistant/brands-Repo;
-          # fuer ein Custom-Repository optional.
-          ignore: brands
