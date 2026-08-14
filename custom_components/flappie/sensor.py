@@ -13,7 +13,7 @@ from homeassistant.components.sensor import (
     SensorEntityDescription,
     SensorStateClass,
 )
-from homeassistant.const import EntityCategory, UnitOfMass
+from homeassistant.const import EntityCategory, UnitOfMass, UnitOfTime
 from homeassistant.core import HomeAssistant
 from homeassistant.helpers.entity_platform import AddEntitiesCallback
 from homeassistant.util import dt as dt_util
@@ -110,6 +110,11 @@ async def async_setup_entry(
     )
     entities.extend(
         FlappieHealthNextSensor(coordinator, cat_id, first_device_id, health_type)
+        for cat_id in coordinator.data.cats
+        for health_type in HEALTH_TYPES
+    )
+    entities.extend(
+        FlappieHealthDaysSensor(coordinator, cat_id, first_device_id, health_type)
         for cat_id in coordinator.data.cats
         for health_type in HEALTH_TYPES
     )
@@ -327,6 +332,38 @@ class FlappieHealthNextSensor(FlappieCatEntity, SensorEntity):
         if entry["last"] is None:
             return None
         return add_months(entry["last"], entry["interval"])
+
+
+class FlappieHealthDaysSensor(FlappieCatEntity, SensorEntity):
+    """Tage bis zur naechsten Behandlung (negativ = ueberfaellig).
+
+    Praktisch fuer Dashboards: numerische Sichtbarkeits-/Farbbedingungen
+    (z. B. rot < 0, orange 0-14, gruen > 14) brauchen einen Zahlenwert.
+    """
+
+    _attr_native_unit_of_measurement = UnitOfTime.DAYS
+
+    def __init__(
+        self,
+        coordinator,
+        cat_id: int,
+        via_device_id: str | None,
+        health_type: str,
+    ) -> None:
+        super().__init__(
+            coordinator, cat_id, f"health_days_{health_type}", via_device_id
+        )
+        self._health_type = health_type
+        self._attr_translation_key = f"health_days_{health_type}"
+        self._attr_icon = HEALTH_ICONS[health_type]
+
+    @property
+    def native_value(self) -> int | None:
+        entry = self.coordinator.health_entry(self._cat_id, self._health_type)
+        if entry["last"] is None:
+            return None
+        next_due = add_months(entry["last"], entry["interval"])
+        return (next_due - dt_util.now().date()).days
 
 
 class FlappieCatWeightSensor(FlappieCatEntity, SensorEntity):

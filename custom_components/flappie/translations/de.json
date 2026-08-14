@@ -107,7 +107,10 @@
       "prey_today": { "name": "Beute heute" },
       "health_next_worms": { "name": "Nächste Wurmkur" },
       "health_next_fleas": { "name": "Nächste Flohbehandlung" },
-      "health_next_vet": { "name": "Nächster Arztbesuch" }
+      "health_next_vet": { "name": "Nächster Arztbesuch" },
+      "health_days_worms": { "name": "Tage bis Wurmkur" },
+      "health_days_fleas": { "name": "Tage bis Flohbehandlung" },
+      "health_days_vet": { "name": "Tage bis Arztbesuch" }
     },
     "switch": {
       "prey_detection": { "name": "Beuteerkennung" },

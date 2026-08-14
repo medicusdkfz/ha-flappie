@@ -1,5 +1,9 @@
 # Changelog
 
+## 0.7.0 — 2026-08-14
+
+- New **Days until …** sensor per treatment (negative = overdue) — enables numeric dashboard conditions such as traffic-light colouring (red overdue, orange ≤ 14 days, green otherwise)
+
 ## 0.6.0 — 2026-08-14
 
 - **Cat health tracking** per cat for deworming, flea treatment and vet visits: settable *last treatment* date, per-cat *interval in months* (defaults: 3/1/12), computed *next due* date and a *due* binary sensor for automations. Values are stored locally in Home Assistant (restart-safe) — the Flappie cloud has no such data.
