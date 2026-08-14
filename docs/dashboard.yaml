@@ -1,0 +1,150 @@
+views:
+  - title: Flappie
+    icon: mdi:cat
+    type: sections
+    max_columns: 3
+    sections:
+      - type: grid
+        cards:
+          - type: heading
+            heading: Steuerung
+            icon: mdi:door-sliding
+          - type: tile
+            entity: lock.YOUR_DEVICE
+            name: Klappe
+            features:
+              - type: lock-commands
+            grid_options:
+              columns: full
+          - type: tile
+            entity: select.YOUR_DEVICE_turmodus
+            name: Türmodus
+            features:
+              - type: select-options
+            grid_options:
+              columns: full
+          - type: tile
+            entity: switch.YOUR_DEVICE_beuteerkennung
+            name: Beuteerkennung
+            grid_options:
+              columns: full
+          - type: tile
+            entity: switch.YOUR_DEVICE_beute_zeitsperre
+            name: Beute-Zeitsperre
+            grid_options:
+              columns: full
+          - type: heading
+            heading: Status
+            icon: mdi:information-outline
+          - type: tile
+            entity: sensor.YOUR_DEVICE_turstatus
+            name: Türstatus
+            grid_options:
+              columns: full
+          - type: tile
+            entity: sensor.YOUR_DEVICE_letztes_ereignis
+            name: Letztes Ereignis
+            grid_options:
+              columns: full
+          - type: tile
+            entity: sensor.YOUR_DEVICE_letztes_beute_ereignis
+            name: Letztes Beute-Ereignis
+            color: red
+            grid_options:
+              columns: full
+          - type: tile
+            entity: sensor.YOUR_DEVICE_blockierte_beute
+            name: Blockierte Beute
+            grid_options:
+              columns: full
+          - type: tile
+            entity: binary_sensor.YOUR_DEVICE_beutesperre_aktiv
+            name: Beutesperre aktiv
+            grid_options:
+              columns: full
+          - type: tile
+            entity: binary_sensor.YOUR_DEVICE_zeitplan_aktiv
+            name: Zeitplan aktiv
+            grid_options:
+              columns: full
+      - type: grid
+        cards:
+          - type: heading
+            heading: Letzte Ereignisse
+            icon: mdi:motion-play-outline
+          - type: button
+            name: Videos ansehen
+            icon: mdi:play-circle-outline
+            tap_action:
+              action: navigate
+              navigation_path: /media-browser/browser/app%2Cmedia-source%3A%2F%2Fflappie
+            grid_options:
+              columns: full
+          - type: picture-entity
+            entity: image.YOUR_DEVICE_ereignis_1
+            show_name: false
+            show_state: true
+          - type: picture-entity
+            entity: image.YOUR_DEVICE_ereignis_2
+            show_name: false
+            show_state: true
+          - type: picture-entity
+            entity: image.YOUR_DEVICE_ereignis_3
+            show_name: false
+            show_state: true
+          - type: picture-entity
+            entity: image.YOUR_DEVICE_ereignis_4
+            show_name: false
+            show_state: true
+      - type: grid
+        cards:
+          - type: heading
+            heading: Katzen
+            icon: mdi:cat
+          - type: tile
+            entity: sensor.YOUR_CAT_1_weight
+            name: Cat 1
+            grid_options:
+              columns: full
+          - type: tile
+            entity: sensor.YOUR_CAT_2_weight
+            name: Cat 2
+            grid_options:
+              columns: full
+          - type: heading
+            heading: Statistiken
+            icon: mdi:chart-bar
+          - type: tile
+            entity: sensor.YOUR_DEVICE_ereignisse_heute
+            name: Ereignisse heute
+            grid_options:
+              columns: full
+          - type: tile
+            entity: sensor.YOUR_DEVICE_beute_heute
+            name: Beute heute
+            grid_options:
+              columns: full
+          - type: statistics-graph
+            title: Aktivität pro Tag
+            chart_type: bar
+            period: day
+            days_to_show: 14
+            hide_legend: true
+            stat_types:
+              - change
+            entities:
+              - flappie:activity_daily
+            grid_options:
+              columns: full
+          - type: statistics-graph
+            title: Beute pro Tag
+            chart_type: bar
+            period: day
+            days_to_show: 60
+            hide_legend: true
+            stat_types:
+              - change
+            entities:
+              - flappie:prey_daily
+            grid_options:
+              columns: full

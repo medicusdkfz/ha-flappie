@@ -1,0 +1,94 @@
+{
+  "config": {
+    "step": {
+      "user": {
+        "title": "Flappie-Konto",
+        "description": "Melde dich mit deinem Flappie-App-Konto an. Inoffizielle Integration — nutzt dieselbe Cloud-API wie die mobile App.",
+        "data": {
+          "email": "E-Mail",
+          "password": "Passwort"
+        }
+      },
+      "reauth_confirm": {
+        "title": "Flappie neu anmelden",
+        "description": "Das Passwort für {email} ist nicht mehr gültig. Gib das neue Passwort ein.",
+        "data": {
+          "password": "Passwort"
+        }
+      }
+    },
+    "error": {
+      "invalid_auth": "Ungültige Anmeldedaten",
+      "cannot_connect": "Verbindung fehlgeschlagen",
+      "unknown": "Unerwarteter Fehler"
+    },
+    "abort": {
+      "already_configured": "Konto ist bereits konfiguriert",
+      "reauth_successful": "Neuanmeldung erfolgreich"
+    }
+  },
+  "entity": {
+    "binary_sensor": {
+      "prey_system_lock": { "name": "Beutesperre aktiv" },
+      "problem": { "name": "Problem" },
+      "timeplan_active": { "name": "Zeitplan aktiv" }
+    },
+    "event": {
+      "flap_event": {
+        "name": "Klappen-Ereignis",
+        "state_attributes": {
+          "event_type": {
+            "state": {
+              "activity": "Aktivität",
+              "prey": "Beute erkannt"
+            }
+          }
+        }
+      }
+    },
+    "image": {
+      "last_event_image": { "name": "Letztes Ereignisbild" },
+      "cat_avatar": { "name": "Profilbild" },
+      "event_image_1": { "name": "Ereignis 1" },
+      "event_image_2": { "name": "Ereignis 2" },
+      "event_image_3": { "name": "Ereignis 3" },
+      "event_image_4": { "name": "Ereignis 4" }
+    },
+    "number": {
+      "prey_lock_duration": { "name": "Dauer Beutesperre" }
+    },
+    "select": {
+      "door_policy": {
+        "name": "Türmodus",
+        "state": {
+          "open": "Offen (beide Richtungen)",
+          "closed": "Geschlossen (beide Richtungen)",
+          "open_in": "Nur Eingang",
+          "open_out": "Nur Ausgang"
+        }
+      }
+    },
+    "sensor": {
+      "door_state": {
+        "name": "Türstatus",
+        "state": {
+          "locked": "Verriegelt",
+          "unlocked": "Entriegelt"
+        }
+      },
+      "last_event": { "name": "Letztes Ereignis" },
+      "last_prey_event": { "name": "Letztes Beute-Ereignis" },
+      "signal_quality": { "name": "Signalqualität" },
+      "blocked_prey": { "name": "Blockierte Beute" },
+      "cat_weight": { "name": "Gewicht" },
+      "activity_today": { "name": "Ereignisse heute" },
+      "prey_today": { "name": "Beute heute" }
+    },
+    "switch": {
+      "prey_detection": { "name": "Beuteerkennung" },
+      "prey_timed_lock": { "name": "Beute-Zeitsperre" },
+      "buttons": { "name": "Tasten" },
+      "rfid": { "name": "RFID" }
+    }
+  }
+}

@@ -1,0 +1,95 @@
+{
+  "config": {
+    "step": {
+      "user": {
+        "title": "Flappie account",
+        "description": "Sign in with your Flappie app account. Unofficial integration — talks to the same cloud API as the mobile app.",
+        "data": {
+          "email": "[%key:common::config_flow::data::email%]",
+          "password": "[%key:common::config_flow::data::password%]"
+        }
+      },
+      "reauth_confirm": {
+        "title": "Re-authenticate Flappie",
+        "description": "The password for {email} is no longer valid. Enter the new password.",
+        "data": {
+          "password": "[%key:common::config_flow::data::password%]"
+        }
+      }
+    },
+    "error": {
+      "invalid_auth": "[%key:common::config_flow::error::invalid_auth%]",
+      "cannot_connect": "[%key:common::config_flow::error::cannot_connect%]",
+      "unknown": "[%key:common::config_flow::error::unknown%]"
+    },
+    "abort": {
+      "already_configured": "[%key:common::config_flow::abort::already_configured_account%]",
+      "reauth_successful": "[%key:common::config_flow::abort::reauth_successful%]"
+    }
+  },
+  "entity": {
+    "binary_sensor": {
+      "prey_system_lock": { "name": "Prey lock active" },
+      "problem": { "name": "Problem" },
+      "timeplan_active": { "name": "Time plan active" }
+    },
+    "event": {
+      "flap_event": {
+        "name": "Flap event",
+        "state_attributes": {
+          "event_type": {
+            "state": {
+              "activity": "Activity",
+              "prey": "Prey detected"
+            }
+          }
+        }
+      }
+    },
+    "image": {
+      "last_event_image": { "name": "Last event image" },
+      "cat_avatar": { "name": "Avatar" },
+      "event_image_1": { "name": "Event 1" },
+      "event_image_2": { "name": "Event 2" },
+      "event_image_3": { "name": "Event 3" },
+      "event_image_4": { "name": "Event 4" }
+    },
+    "number": {
+      "prey_lock_duration": { "name": "Prey lock duration" }
+    },
+    "select": {
+      "door_policy": {
+        "name": "Door mode",
+        "state": {
+          "open": "Open (both directions)",
+          "closed": "Closed (both directions)",
+          "open_in": "Entry only",
+          "open_out": "Exit only"
+        }
+      }
+    },
+    "sensor": {
+      "door_state": {
+        "name": "Door state",
+        "state": {
+          "locked": "Locked",
+          "unlocked": "Unlocked"
+        }
+      },
+      "last_event": { "name": "Last event" },
+      "last_prey_event": { "name": "Last prey event" },
+      "signal_quality": { "name": "Signal quality" },
+      "blocked_prey": { "name": "Blocked prey" },
+      "cat_weight": { "name": "Weight" },
+      "activity_today": { "name": "Events today" },
+      "prey_today": { "name": "Prey today" },
+      "cat_weight": { "name": "Weight" }
+    },
+    "switch": {
+      "prey_detection": { "name": "Prey detection" },
+      "prey_timed_lock": { "name": "Prey timed lock" },
+      "buttons": { "name": "Buttons" },
+      "rfid": { "name": "RFID" }
+    }
+  }
+}
