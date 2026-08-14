@@ -116,7 +116,9 @@
       "prey_detection": { "name": "Beuteerkennung" },
       "prey_timed_lock": { "name": "Beute-Zeitsperre" },
       "buttons": { "name": "Tasten" },
-      "rfid": { "name": "RFID" }
+      "rfid": { "name": "RFID" },
+      "health_sync_cats": { "name": "Behandlungen: Katzen koppeln" },
+      "health_combo": { "name": "Behandlungen: Kombipräparat (Wurm & Floh)" }
     }
   }
 }

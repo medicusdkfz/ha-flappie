@@ -14,8 +14,7 @@ from homeassistant.helpers.entity_platform import AddEntitiesCallback
 from homeassistant.helpers.restore_state import RestoreEntity
 
 from . import FlappieConfigEntry
-from .const import EVENT_HEALTH_UPDATED, HEALTH_ICONS, HEALTH_TYPES
-from .coordinator import add_months
+from .const import HEALTH_ICONS, HEALTH_TYPES
 from .entity import FlappieCatEntity
 
 
@@ -67,19 +66,12 @@ class FlappieHealthLastDate(FlappieCatEntity, DateEntity, RestoreEntity):
         return self.coordinator.health_entry(self._cat_id, self._health_type)["last"]
 
     async def async_set_value(self, value: date) -> None:
-        entry = self.coordinator.health_entry(self._cat_id, self._health_type)
-        entry["last"] = value
+        # Je nach Koppel-Optionen (Katzen-Sync, Kombipraeparat) gilt die
+        # Eingabe fuer mehrere Katzen/Behandlungsarten. Events feuern nur
+        # bei echten Benutzeraktionen (nicht beim Restore/Neustart).
+        targets = self.coordinator.health_targets(self._cat_id, self._health_type)
+        for cat_id, health_type in targets:
+            self.coordinator.health_entry(cat_id, health_type)["last"] = value
         self.coordinator.async_update_listeners()
-        # Nur bei echten Benutzeraktionen (nicht beim Restore/Neustart), damit
-        # z. B. Kalender-Automatisierungen keine Duplikate erzeugen.
-        self.hass.bus.async_fire(
-            EVENT_HEALTH_UPDATED,
-            {
-                "cat_id": self._cat_id,
-                "cat_name": self.cat.get("name"),
-                "health_type": self._health_type,
-                "last": value.isoformat(),
-                "interval_months": entry["interval"],
-                "next_due": add_months(value, entry["interval"]).isoformat(),
-            },
-        )
+        for cat_id, health_type in targets:
+            self.coordinator.async_fire_health_event(cat_id, health_type)

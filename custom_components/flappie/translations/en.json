@@ -116,7 +116,9 @@
       "prey_detection": { "name": "Prey detection" },
       "prey_timed_lock": { "name": "Prey timed lock" },
       "buttons": { "name": "Buttons" },
-      "rfid": { "name": "RFID" }
+      "rfid": { "name": "RFID" },
+      "health_sync_cats": { "name": "Treatments: link cats" },
+      "health_combo": { "name": "Treatments: combo product (worms & fleas)" }
     }
   }
 }

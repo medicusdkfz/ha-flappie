@@ -8,8 +8,7 @@ from homeassistant.core import HomeAssistant
 from homeassistant.helpers.entity_platform import AddEntitiesCallback
 
 from . import FlappieConfigEntry
-from .const import EVENT_HEALTH_UPDATED, HEALTH_TYPES
-from .coordinator import add_months
+from .const import HEALTH_INTERVAL_MAX, HEALTH_TYPES
 from .entity import FlappieCatEntity, FlappieEntity
 
 
@@ -36,9 +35,9 @@ class FlappieHealthInterval(FlappieCatEntity, RestoreNumber):
     """Behandlungsintervall in Monaten; lokal gepflegt, neustartfest."""
 
     _attr_native_min_value = 1
-    _attr_native_max_value = 36
+    _attr_native_max_value = HEALTH_INTERVAL_MAX
     _attr_native_step = 1
-    _attr_mode = NumberMode.BOX
+    _attr_mode = NumberMode.SLIDER
     _attr_entity_category = EntityCategory.CONFIG
     _attr_icon = "mdi:calendar-refresh"
 
@@ -61,7 +60,7 @@ class FlappieHealthInterval(FlappieCatEntity, RestoreNumber):
         if data is None or data.native_value is None:
             return
         entry = self.coordinator.health_entry(self._cat_id, self._health_type)
-        entry["interval"] = int(data.native_value)
+        entry["interval"] = min(int(data.native_value), HEALTH_INTERVAL_MAX)
         self.coordinator.async_update_listeners()
 
     @property
@@ -71,22 +70,16 @@ class FlappieHealthInterval(FlappieCatEntity, RestoreNumber):
         ]
 
     async def async_set_native_value(self, value: float) -> None:
-        entry = self.coordinator.health_entry(self._cat_id, self._health_type)
-        entry["interval"] = int(value)
-        self.coordinator.async_update_listeners()
-        # Nur bei echten Benutzeraktionen; ohne gesetztes Datum kein Termin.
-        if entry["last"] is not None:
-            self.hass.bus.async_fire(
-                EVENT_HEALTH_UPDATED,
-                {
-                    "cat_id": self._cat_id,
-                    "cat_name": self.cat.get("name"),
-                    "health_type": self._health_type,
-                    "last": entry["last"].isoformat(),
-                    "interval_months": entry["interval"],
-                    "next_due": add_months(entry["last"], entry["interval"]).isoformat(),
-                },
+        # Koppel-Optionen beachten; Events nur bei echten Benutzeraktionen,
+        # und nur wo bereits ein Behandlungsdatum gesetzt ist.
+        targets = self.coordinator.health_targets(self._cat_id, self._health_type)
+        for cat_id, health_type in targets:
+            self.coordinator.health_entry(cat_id, health_type)["interval"] = int(
+                value
             )
+        self.coordinator.async_update_listeners()
+        for cat_id, health_type in targets:
+            self.coordinator.async_fire_health_event(cat_id, health_type)
 
 
 class FlappiePreyLockDuration(FlappieEntity, NumberEntity):

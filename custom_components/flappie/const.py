@@ -38,6 +38,8 @@ HEALTH_TYPES: dict[str, int] = {
     "vet": 12,    # Arztbesuch
 }
 
+HEALTH_INTERVAL_MAX = 12  # Monate
+
 # Wird bei echten Benutzeraenderungen am Gesundheits-Tracking gefeuert
 # (nicht beim Restore nach Neustarts) — als Trigger fuer Automatisierungen.
 EVENT_HEALTH_UPDATED = "flappie_health_updated"

@@ -110,7 +110,9 @@ Jede Katze bekommt zusätzlich einen kleinen Gesundheits-Tracker für **Wurmkur*
 | Entität | Typ | Beschreibung |
 |---|---|---|
 | Letzte Wurmkur / Flohbehandlung / Letzter Arztbesuch | Datum | Datum der letzten Behandlung setzen |
-| Intervall Wurmkur / Flohbehandlung / Arztbesuch (Monate) | Number (Konfiguration) | Individuelles Intervall pro Katze; Standard: Wurmkur 3, Flöhe 1, Arzt 12 |
+| Intervall Wurmkur / Flohbehandlung / Arztbesuch (Monate) | Number (Konfiguration) | Individuelles Intervall pro Katze (1–12 Monate, Slider); Standard: Wurmkur 3, Flöhe 1, Arzt 12 |
+| Behandlungen: Katzen koppeln | Switch (Konfiguration, am Klappen-Gerät) | An: Eine Datums-/Intervall-Eingabe gilt für alle Katzen gleichzeitig |
+| Behandlungen: Kombipräparat (Wurm & Floh) | Switch (Konfiguration, am Klappen-Gerät) | An: Wurmkur und Flohbehandlung werden gemeinsam gepflegt (Spot-on-Kombipräparate); kombinierbar mit *Katzen koppeln* |
 | Nächste Wurmkur / Flohbehandlung / Nächster Arztbesuch | Sensor (Datum) | Berechnet: letzte Behandlung + Intervall |
 | Wurmkur / Flohbehandlung / Arztbesuch fällig | Binärsensor | An, sobald der nächste Termin heute oder überschritten ist — ideal als Automatisierungs-Trigger |
 

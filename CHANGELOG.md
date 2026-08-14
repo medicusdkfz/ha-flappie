@@ -1,5 +1,13 @@
 # Changelog
 
+## 0.8.0 — 2026-08-14
+
+- Treatment intervals are now capped at **12 months** and use a slider (values above 12 are clamped on restore)
+- New config switches on the cat door device:
+  - **Treatments: link cats** — a date/interval entry applies to all cats at once
+  - **Treatments: combo product (worms & fleas)** — deworming and flea treatment are maintained together (spot-on combo products)
+  - Both combinable; every affected cat/treatment gets its own `flappie_health_updated` event (and thus its own calendar entry)
+
 ## 0.7.1 — 2026-08-14
 
 - New event **`flappie_health_updated`** fired only on real user changes to the health tracker (never on restore after a restart) with `cat_name`, `health_type`, `last`, `interval_months` and `next_due` — the reliable trigger for calendar automations. Triggering on the *next due* sensors instead creates duplicate calendar entries on every Home Assistant restart.

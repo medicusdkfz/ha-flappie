@@ -28,7 +28,14 @@ except ImportError:  # pragma: no cover
     StatisticMeanType = None
 
 from .api import FlappieApiClient, FlappieApiError, FlappieAuthError
-from .const import DEFAULT_SCAN_INTERVAL, DOMAIN, HEALTH_TYPES, SIGNAL_NEW_BUNDLE
+from .const import (
+    DEFAULT_SCAN_INTERVAL,
+    DOMAIN,
+    EVENT_HEALTH_UPDATED,
+    HEALTH_INTERVAL_MAX,
+    HEALTH_TYPES,
+    SIGNAL_NEW_BUNDLE,
+)
 
 _LOGGER = logging.getLogger(__name__)
 
@@ -106,12 +113,46 @@ class FlappieCoordinator(DataUpdateCoordinator[FlappieData]):
         # Lokal gepflegtes Gesundheits-Tracking je (Katze, Behandlungsart);
         # Persistenz uebernehmen die Date-/Number-Entitaeten (RestoreEntity).
         self.health: dict[tuple[int, str], dict[str, Any]] = {}
+        # Optionen: sync_cats = Eingaben gelten fuer alle Katzen;
+        # combo = Wurmkur und Flohbehandlung gemeinsam (Kombipraeparat).
+        self.health_options: dict[str, bool] = {"sync_cats": False, "combo": False}
 
     def health_entry(self, cat_id: int, health_type: str) -> dict[str, Any]:
         """Eintrag {last: date|None, interval: Monate} liefern/anlegen."""
         return self.health.setdefault(
             (cat_id, health_type),
             {"last": None, "interval": HEALTH_TYPES[health_type]},
+        )
+
+    def health_targets(
+        self, cat_id: int, health_type: str
+    ) -> list[tuple[int, str]]:
+        """Zielkombinationen einer Eingabe gemaess Koppel-Optionen."""
+        types = {health_type}
+        if self.health_options.get("combo") and health_type in ("worms", "fleas"):
+            types.update(("worms", "fleas"))
+        if self.health_options.get("sync_cats") and self.data is not None:
+            cats = set(self.data.cats) or {cat_id}
+        else:
+            cats = {cat_id}
+        return [(cat, t) for cat in sorted(cats) for t in sorted(types)]
+
+    def async_fire_health_event(self, cat_id: int, health_type: str) -> None:
+        """Event fuer Automatisierungen — nur bei echten Benutzeraktionen."""
+        entry = self.health_entry(cat_id, health_type)
+        if entry["last"] is None:
+            return
+        cat = (self.data.cats.get(cat_id) if self.data else None) or {}
+        self.hass.bus.async_fire(
+            EVENT_HEALTH_UPDATED,
+            {
+                "cat_id": cat_id,
+                "cat_name": cat.get("name"),
+                "health_type": health_type,
+                "last": entry["last"].isoformat(),
+                "interval_months": entry["interval"],
+                "next_due": add_months(entry["last"], entry["interval"]).isoformat(),
+            },
         )
 
     async def _async_update_data(self) -> FlappieData:

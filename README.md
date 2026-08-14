@@ -111,7 +111,9 @@ Each cat also gets a small health tracker for **deworming**, **flea treatment** 
 | Entity | Type | Description |
 |---|---|---|
 | Last deworming / flea treatment / vet visit | Date | Set the date when the treatment happened |
-| Deworming / flea treatment / vet visit interval (months) | Number (config) | Individual interval per cat; defaults: deworming 3, fleas 1, vet 12 |
+| Deworming / flea treatment / vet visit interval (months) | Number (config) | Individual interval per cat (1–12 months, slider); defaults: deworming 3, fleas 1, vet 12 |
+| Treatments: link cats | Switch (config, on the door device) | When on, a date/interval entry applies to all cats at once |
+| Treatments: combo product (worms & fleas) | Switch (config, on the door device) | When on, deworming and flea treatment are maintained together (spot-on combo products); combinable with *link cats* |
 | Next deworming / flea treatment / vet visit | Sensor (date) | Computed: last treatment + interval |
 | Deworming / flea treatment / vet visit due | Binary sensor | On when the next date is today or in the past — ideal as an automation trigger |
 
