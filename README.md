@@ -170,7 +170,8 @@ Hard-earned knowledge about the Flappie cloud, so you don’t have to rediscover
 - **The prey statistics series is returned newest-first** — mind the order if you build on it.
 - **No direction information.** The camera watches the outside; the API does not distinguish entering from leaving. “Activity” counts flap events.
 - **RFID:** the settings flag exists in the backend, but per the vendor the door does not read microchips; selective access is the camera-based “Cat ID” feature. The switch is disabled by default and its effect is unknown.
-- Timestamps from the cloud are timezone-naive and interpreted as UTC (verified against real events).
+- **Timestamps from the cloud are timezone-naive in the device's local timezone** (`zone_info`), *not* UTC — verified against a real flap passage. The integration interprets them in Home Assistant's local timezone, which in practice matches the device's `zone_info`.
+- **Cloud processing latency:** a flap event becomes visible in the cloud (app *and* API) roughly 5–10 minutes after it happens — the door uploads the video and the AI analyses it first. Add up to 60 s polling on top for Home Assistant.
 
 ## Troubleshooting
 

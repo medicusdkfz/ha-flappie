@@ -1,5 +1,10 @@
 # Changelog
 
+## 0.4.2 — 2026-08-14
+
+- Fixed: cloud timestamps are timezone-naive **local time** (the device's `zone_info`), not UTC — all event timestamps were shifted by the UTC offset (e.g. +2 h in CEST). Verified against a real flap passage. Timestamps are now interpreted in Home Assistant's local timezone.
+- Documented the cloud's processing latency (~5–10 min from flap passage to visibility in app/API)
+
 ## 0.4.1 — 2026-08-14
 
 - Fixed: prey statistics series from the cloud is returned newest-first; cumulative sums are now computed in ascending order (charts showed negative bars before)

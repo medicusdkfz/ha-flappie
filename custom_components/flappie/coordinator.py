@@ -5,7 +5,7 @@ from __future__ import annotations
 import asyncio
 import logging
 from dataclasses import dataclass, field
-from datetime import datetime, timedelta, timezone
+from datetime import datetime, timedelta
 from typing import Any
 
 from homeassistant.components.recorder import get_instance
@@ -33,14 +33,20 @@ _LOGGER = logging.getLogger(__name__)
 
 
 def parse_flappie_datetime(value: str | None) -> datetime | None:
-    """Parse a timestamp from the Flappie API; naive values are treated as UTC."""
+    """Parse a timestamp from the Flappie API.
+
+    Die Cloud liefert naive Zeitstempel in der Geraete-Zeitzone (zone_info),
+    nicht in UTC — verifiziert 08/2026 durch Live-Vergleich eines realen
+    Durchgangs (Ereignis 13:33 Lokalzeit == created_at "13:33:57"). Die
+    HA-Zeitzone entspricht in der Praxis der zone_info der Klappe.
+    """
     if not value:
         return None
     parsed = dt_util.parse_datetime(value)
     if parsed is None:
         return None
     if parsed.tzinfo is None:
-        parsed = parsed.replace(tzinfo=timezone.utc)
+        parsed = parsed.replace(tzinfo=dt_util.DEFAULT_TIME_ZONE)
     return parsed
 
 

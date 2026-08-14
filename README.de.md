@@ -169,7 +169,8 @@ Hart erarbeitetes Wissen über die Flappie-Cloud, damit es niemand neu entdecken
 - **Die Beute-Statistikserie kommt absteigend sortiert** — bei eigener Weiterverarbeitung auf die Reihenfolge achten.
 - **Keine Richtungsinformation.** Die Kamera schaut nach draußen; die API unterscheidet nicht zwischen Rein und Raus. „Aktivität" zählt Klappen-Ereignisse.
 - **RFID:** Das Settings-Flag existiert im Backend, aber laut Hersteller liest die Klappe keine Mikrochips; selektiver Zutritt ist das kamerabasierte „Cat ID". Der Schalter ist standardmäßig deaktiviert, seine Wirkung unbekannt.
-- Zeitstempel der Cloud sind zeitzonen-naiv und werden als UTC interpretiert (gegen reale Ereignisse verifiziert).
+- **Zeitstempel der Cloud sind zeitzonen-naiv in der Geräte-Zeitzone** (`zone_info`), *nicht* UTC — verifiziert anhand eines realen Durchgangs. Die Integration interpretiert sie in der HA-Zeitzone, die in der Praxis der `zone_info` der Klappe entspricht.
+- **Verarbeitungslatenz der Cloud:** Ein Klappen-Ereignis wird erst ~5–10 Minuten nach dem Durchgang in der Cloud sichtbar (App *und* API) — die Klappe lädt das Video hoch und die KI analysiert es. Dazu kommen bis zu 60 s Polling in Home Assistant.
 
 ## Fehlerbehebung
 
