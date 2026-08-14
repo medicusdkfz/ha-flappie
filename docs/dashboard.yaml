@@ -33,6 +33,14 @@ views:
             name: Beute-Zeitsperre
             grid_options:
               columns: full
+          - type: tile
+            entity: number.YOUR_DEVICE_dauer_beutesperre
+            name: Dauer Beutesperre
+            features:
+              - type: numeric-input
+                style: slider
+            grid_options:
+              columns: full
           - type: heading
             heading: Status
             icon: mdi:information-outline
