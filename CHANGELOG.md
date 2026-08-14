@@ -1,5 +1,9 @@
 # Changelog
 
+## 0.8.1 — 2026-08-14
+
+- Ship the brand icon directly with the integration (`brand/icon.png`, supported since Home Assistant 2026.3) — the “icon not available” placeholder in the integrations page and HACS is gone. The home-assistant/brands repository no longer accepts icons for custom integrations.
+
 ## 0.8.0 — 2026-08-14
 
 - Treatment intervals are now capped at **12 months** and use a slider (values above 12 are clamped on restore)

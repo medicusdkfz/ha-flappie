@@ -1,13 +1,18 @@
 {
   "domain": "flappie",
   "name": "Flappie",
-  "codeowners": ["@medicusdkfz"],
+  "codeowners": [
+    "@medicusdkfz"
+  ],
   "config_flow": true,
-  "dependencies": ["media_source", "recorder"],
+  "dependencies": [
+    "media_source",
+    "recorder"
+  ],
   "documentation": "https://github.com/medicusdkfz/ha-flappie",
   "integration_type": "hub",
   "iot_class": "cloud_polling",
   "issue_tracker": "https://github.com/medicusdkfz/ha-flappie/issues",
   "requirements": [],
-  "version": "0.8.0"
+  "version": "0.8.1"
 }
