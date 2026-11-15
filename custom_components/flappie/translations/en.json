@@ -9,6 +9,13 @@
           "password": "Password"
         }
       },
+      "options": {
+        "title": "Integration options",
+        "description": "Choose whether to create local health tracking entities.",
+        "data": {
+          "enable_health_tracking": "Enable local health tracking (deworming, flea treatment, and vet visits)"
+        }
+      },
       "reauth_confirm": {
         "title": "Re-authenticate Flappie",
         "description": "The password for {email} is no longer valid. Enter the new password.",

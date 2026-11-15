@@ -4,6 +4,8 @@ from __future__ import annotations
 
 DOMAIN = "flappie"
 
+CONF_ENABLE_HEALTH_TRACKING = "enable_health_tracking"
+
 BASE_URL = "https://app.flappiedoors.com"
 
 DEFAULT_SCAN_INTERVAL = 60  # seconds; README des API-Pakets bittet um >= 30 s

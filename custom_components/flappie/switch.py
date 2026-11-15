@@ -12,6 +12,7 @@ from homeassistant.helpers.entity_platform import AddEntitiesCallback
 from homeassistant.helpers.restore_state import RestoreEntity
 
 from . import FlappieConfigEntry
+from .const import CONF_ENABLE_HEALTH_TRACKING
 from .entity import FlappieEntity
 
 
@@ -68,7 +69,10 @@ async def async_setup_entry(
         for description in SWITCHES
     ]
     first_device_id = next(iter(coordinator.data.devices), None)
-    if first_device_id is not None:
+    if (
+        first_device_id is not None
+        and entry.data.get(CONF_ENABLE_HEALTH_TRACKING, True)
+    ):
         entities.extend(
             FlappieHealthOptionSwitch(coordinator, first_device_id, option, icon)
             for option, icon in (

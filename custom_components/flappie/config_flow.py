@@ -13,7 +13,7 @@ from homeassistant.const import CONF_EMAIL, CONF_PASSWORD
 from homeassistant.helpers.aiohttp_client import async_get_clientsession
 
 from .api import FlappieApiClient, FlappieApiError, FlappieAuthError
-from .const import DOMAIN
+from .const import CONF_ENABLE_HEALTH_TRACKING, DOMAIN
 
 _LOGGER = logging.getLogger(__name__)
 
@@ -21,6 +21,12 @@ STEP_USER_SCHEMA = vol.Schema(
     {
         vol.Required(CONF_EMAIL): str,
         vol.Required(CONF_PASSWORD): str,
+    }
+)
+
+STEP_OPTIONS_SCHEMA = vol.Schema(
+    {
+        vol.Required(CONF_ENABLE_HEALTH_TRACKING, default=True): bool,
     }
 )
 
@@ -57,16 +63,32 @@ class FlappieConfigFlow(ConfigFlow, domain=DOMAIN):
             self._abort_if_unique_id_configured()
             error = await self._async_validate(email, user_input[CONF_PASSWORD])
             if error is None:
-                return self.async_create_entry(
-                    title=email,
-                    data={
-                        CONF_EMAIL: email,
-                        CONF_PASSWORD: user_input[CONF_PASSWORD],
-                    },
-                )
+                self._pending_entry_data = {
+                    CONF_EMAIL: email,
+                    CONF_PASSWORD: user_input[CONF_PASSWORD],
+                }
+                return await self.async_step_options()
             errors["base"] = error
         return self.async_show_form(
             step_id="user", data_schema=STEP_USER_SCHEMA, errors=errors
+        )
+
+    async def async_step_options(
+        self, user_input: dict[str, Any] | None = None
+    ) -> ConfigFlowResult:
+        """Ask whether to enable local health tracking."""
+        if user_input is not None:
+            return self.async_create_entry(
+                title=self._pending_entry_data[CONF_EMAIL],
+                data={
+                    **self._pending_entry_data,
+                    CONF_ENABLE_HEALTH_TRACKING: user_input[
+                        CONF_ENABLE_HEALTH_TRACKING
+                    ],
+                },
+            )
+        return self.async_show_form(
+            step_id="options", data_schema=STEP_OPTIONS_SCHEMA
         )
 
     async def async_step_reauth(

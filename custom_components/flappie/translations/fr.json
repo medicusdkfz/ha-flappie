@@ -9,6 +9,13 @@
           "password": "Mot de passe"
         }
       },
+      "options": {
+        "title": "Options de l'intégration",
+        "description": "Choisissez si les entités de suivi de santé local doivent être créées.",
+        "data": {
+          "enable_health_tracking": "Activer le suivi de santé local (traitements et visites vétérinaires)"
+        }
+      },
       "reauth_confirm": {
         "title": "Réauthentifier Flappie",
         "description": "Le mot de passe pour {email} n'est plus valide. Saisissez le nouveau mot de passe.",

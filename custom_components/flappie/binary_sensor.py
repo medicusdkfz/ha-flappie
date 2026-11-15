@@ -17,7 +17,7 @@ from homeassistant.helpers.entity_platform import AddEntitiesCallback
 from homeassistant.util import dt as dt_util
 
 from . import FlappieConfigEntry
-from .const import HEALTH_ICONS, HEALTH_TYPES
+from .const import CONF_ENABLE_HEALTH_TRACKING, HEALTH_ICONS, HEALTH_TYPES
 from .coordinator import FlappieCoordinator, FlappieDeviceData, add_months
 from .entity import FlappieCatEntity, FlappieEntity
 
@@ -70,11 +70,14 @@ async def async_setup_entry(
         for description in BINARY_SENSORS
     ]
     first_device_id = next(iter(coordinator.data.devices), None)
-    entities.extend(
-        FlappieHealthDueBinarySensor(coordinator, cat_id, first_device_id, health_type)
-        for cat_id in coordinator.data.cats
-        for health_type in HEALTH_TYPES
-    )
+    if entry.data.get(CONF_ENABLE_HEALTH_TRACKING, True):
+        entities.extend(
+            FlappieHealthDueBinarySensor(
+                coordinator, cat_id, first_device_id, health_type
+            )
+            for cat_id in coordinator.data.cats
+            for health_type in HEALTH_TYPES
+        )
     async_add_entities(entities)
 
 

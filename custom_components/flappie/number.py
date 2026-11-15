@@ -10,6 +10,7 @@ from homeassistant.helpers.entity_platform import AddEntitiesCallback
 from . import FlappieConfigEntry
 from .const import (
     HEALTH_INTERVAL_MAX,
+    CONF_ENABLE_HEALTH_TRACKING,
     HEALTH_TYPES,
     PREY_LOCK_MINUTES_MAX,
     PREY_LOCK_MINUTES_MIN,
@@ -28,11 +29,12 @@ async def async_setup_entry(
         for device_id in coordinator.data.devices
     ]
     first_device_id = next(iter(coordinator.data.devices), None)
-    entities.extend(
-        FlappieHealthInterval(coordinator, cat_id, first_device_id, health_type)
-        for cat_id in coordinator.data.cats
-        for health_type in HEALTH_TYPES
-    )
+    if entry.data.get(CONF_ENABLE_HEALTH_TRACKING, True):
+        entities.extend(
+            FlappieHealthInterval(coordinator, cat_id, first_device_id, health_type)
+            for cat_id in coordinator.data.cats
+            for health_type in HEALTH_TYPES
+        )
     async_add_entities(entities)
 
 

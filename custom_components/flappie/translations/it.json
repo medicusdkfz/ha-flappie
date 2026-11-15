@@ -9,6 +9,13 @@
           "password": "Password"
         }
       },
+      "options": {
+        "title": "Opzioni di integrazione",
+        "description": "Scegli se creare le entità per il monitoraggio sanitario locale.",
+        "data": {
+          "enable_health_tracking": "Abilita il monitoraggio sanitario locale (trattamenti e visite veterinarie)"
+        }
+      },
       "reauth_confirm": {
         "title": "Autentica nuovamente Flappie",
         "description": "La password per {email} non è più valida. Inserisci la nuova password.",

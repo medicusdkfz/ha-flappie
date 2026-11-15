@@ -56,7 +56,7 @@ Copy `custom_components/flappie` into `<config>/custom_components/` and restart 
 
 ### Setup
 
-*Settings → Devices & Services → Add Integration → “Flappie”* and sign in with the credentials of your Flappie app account. If you change your password later, Home Assistant will prompt for re-authentication automatically.
+*Settings → Devices & Services → Add Integration → “Flappie”* and sign in with your Flappie app account. The next step lets you optionally disable local health tracking (treatments and vet visits). If you change your password later, Home Assistant will prompt for re-authentication automatically.
 
 Requires Home Assistant **2024.12** or newer.
 

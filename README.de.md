@@ -55,7 +55,7 @@ Den Ordner `custom_components/flappie` nach `<config>/custom_components/` kopier
 
 ### Einrichtung
 
-*Einstellungen → Geräte & Dienste → Integration hinzufügen → „Flappie"* und mit den Zugangsdaten der Flappie-App anmelden. Bei einer späteren Passwortänderung startet Home Assistant automatisch einen Reauth-Flow.
+*Einstellungen → Geräte & Dienste → Integration hinzufügen → „Flappie“*. Nach der Anmeldung kannst du im nächsten Schritt das lokale Gesundheits-Tracking (Wurmkur, Flohbehandlung, Arztbesuche) optional deaktivieren. Bei einer späteren Passwortänderung startet Home Assistant automatisch einen Reauth-Flow.
 
 Benötigt Home Assistant **2024.12** oder neuer.
 

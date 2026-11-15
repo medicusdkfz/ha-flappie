@@ -9,6 +9,13 @@
           "password": "Passwort"
         }
       },
+      "options": {
+        "title": "Integrationseinstellungen",
+        "description": "Lege fest, ob lokale Gesundheits-Entitäten angelegt werden.",
+        "data": {
+          "enable_health_tracking": "Lokales Gesundheits-Tracking aktivieren (Wurmkur, Flohbehandlung und Arztbesuche)"
+        }
+      },
       "reauth_confirm": {
         "title": "Flappie neu anmelden",
         "description": "Das Passwort für {email} ist nicht mehr gültig. Gib das neue Passwort ein.",

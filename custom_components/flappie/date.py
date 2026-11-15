@@ -14,7 +14,7 @@ from homeassistant.helpers.entity_platform import AddEntitiesCallback
 from homeassistant.helpers.restore_state import RestoreEntity
 
 from . import FlappieConfigEntry
-from .const import HEALTH_ICONS, HEALTH_TYPES
+from .const import CONF_ENABLE_HEALTH_TRACKING, HEALTH_ICONS, HEALTH_TYPES
 from .entity import FlappieCatEntity
 
 
@@ -25,11 +25,12 @@ async def async_setup_entry(
 ) -> None:
     coordinator = entry.runtime_data
     first_device_id = next(iter(coordinator.data.devices), None)
-    async_add_entities(
-        FlappieHealthLastDate(coordinator, cat_id, first_device_id, health_type)
-        for cat_id in coordinator.data.cats
-        for health_type in HEALTH_TYPES
-    )
+    if entry.data.get(CONF_ENABLE_HEALTH_TRACKING, True):
+        async_add_entities(
+            FlappieHealthLastDate(coordinator, cat_id, first_device_id, health_type)
+            for cat_id in coordinator.data.cats
+            for health_type in HEALTH_TYPES
+        )
 
 
 class FlappieHealthLastDate(FlappieCatEntity, DateEntity, RestoreEntity):
