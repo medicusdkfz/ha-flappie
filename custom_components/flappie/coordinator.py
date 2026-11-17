@@ -21,6 +21,7 @@ from homeassistant.exceptions import ConfigEntryAuthFailed
 from homeassistant.helpers.dispatcher import async_dispatcher_send
 from homeassistant.helpers.update_coordinator import DataUpdateCoordinator, UpdateFailed
 from homeassistant.util import dt as dt_util
+from homeassistant.util.unit_conversion import UnitlessRatioConverter
 
 try:  # mean_type ersetzt has_mean in neueren HA-Versionen
     from homeassistant.components.recorder.models import StatisticMeanType
@@ -287,6 +288,7 @@ class FlappieCoordinator(DataUpdateCoordinator[FlappieData]):
             "source": DOMAIN,
             "statistic_id": statistic_id,
             "name": name,
+            "unit_class": UnitlessRatioConverter.UNIT_CLASS,
             "unit_of_measurement": None,
             "has_sum": True,
         }
